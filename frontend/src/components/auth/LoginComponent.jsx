@@ -6,6 +6,7 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
 import { Link } from 'react-router-dom'
+import API from '../../config/API';
 
 let loginSchema = yup.object().shape({
   email: yup.string().email().required(),
@@ -22,8 +23,21 @@ export default function LoginComponent() {
 
 
   const login = (data) => {
-    e.preventDefault();
-    console.log(data)
+  
+    API.post('/login', data).then((res)=>{
+      localStorage.setItem('token', res.data.token);
+      console.log(res.data.token);
+      window.location = '/admin';
+    }).catch((error)=>{
+      if(error.response.data.email){
+        setError('email', {message: error.response.data.email});
+      }
+      if(error.response.data.password){
+        setError('password', {message: error.response.data.password});
+      }
+      console.log(error.response.data)
+    });
+
 
   }
   return (
@@ -36,7 +50,8 @@ export default function LoginComponent() {
       </div>
       <div className="row">
         <div className="col-md-12">
-          <form action="" onSubmit={handleSubmit(login)}>           
+          <form action="" onSubmit={handleSubmit(login)}> 
+                      
             <div className="form-group mb-2">
               <label htmlFor="email">Email:
               {errors.email && <span className='text-danger' >{errors.email.message}</span>}

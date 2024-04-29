@@ -1,12 +1,16 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cors from 'cors';
 import Connection from './config/Connection.js';
 import router from './routes/index.js';
+import UserTableSeeder from './config/Seeder/UserTableSeeder.js';
 
 dotenv.config();
 Connection.connect();
+UserTableSeeder.run();
 const app = express();
 app.use(express.json());
+app.use(cors());
 app.use(express.static('public'));
 app.use(router);
 const mode = process.env.MODE;
