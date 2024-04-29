@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
-import doten from 'dotenv';
-doten.config();
+import dotenv from 'dotenv';
+dotenv.config();
 class Connection {
   
     static async connect() {
