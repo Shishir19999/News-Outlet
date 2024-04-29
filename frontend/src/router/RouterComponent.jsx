@@ -12,6 +12,7 @@ import AddNewsComponent from '../components/admin/AddNewsComponent';
 import ShowNewsComponent from '../components/admin/ShowNewsComponent';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegisterComponent from '../components/auth/RegisterComponent';
+import UsersListComponent from '../components/admin/UsersListComponent';
 
 export default function RouterComponent() {
   return (
@@ -27,6 +28,7 @@ export default function RouterComponent() {
         {/* ==============Admin Panel============= */}
         <Route path="/admin" element={<AdminMiddlewareComponent />}>
           <Route path="/admin" element={<DashboardComponent />} />
+          <Route path="users-list" element={<UsersListComponent />} />
           <Route path="add-news" element={<AddNewsComponent />} />
           <Route path="show-news" element={<ShowNewsComponent />} />
 
