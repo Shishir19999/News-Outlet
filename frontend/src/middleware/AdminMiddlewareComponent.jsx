@@ -71,19 +71,19 @@ export default function AdminMiddlewareComponent() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <Link className="dropdown-item d-flex align-items-center" to="users-profile.html">
                           <i className="bi bi-person" />
                           <span>My Profile</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <Link className="dropdown-item d-flex align-items-center" to="users-profile.html">
                           <i className="bi bi-gear" />
                           <span>Account Settings</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
                         <hr className="dropdown-divider" />
@@ -101,7 +101,7 @@ export default function AdminMiddlewareComponent() {
               </nav>
             </header>
           
-            <aside id="sidebar" className="sidebar">
+            <Linkside id="sidebar" className="sidebar">
               <ul className="sidebar-nav" id="sidebar-nav">
                 <li className="nav-item">
                   <Link className="nav-link " to="/admin">
@@ -135,7 +135,7 @@ export default function AdminMiddlewareComponent() {
                 </li>
                 
               </ul>
-            </aside>
+            </Linkside>
             <main id="main" className="main">
                 <Outlet/>
               
