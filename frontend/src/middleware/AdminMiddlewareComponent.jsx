@@ -101,7 +101,7 @@ export default function AdminMiddlewareComponent() {
               </nav>
             </header>
           
-            <Linkside id="sidebar" className="sidebar">
+            <Link id="sidebar" className="sidebar">
               <ul className="sidebar-nav" id="sidebar-nav">
                 <li className="nav-item">
                   <Link className="nav-link " to="/admin">
@@ -135,7 +135,7 @@ export default function AdminMiddlewareComponent() {
                 </li>
                 
               </ul>
-            </Linkside>
+            </Link>
             <main id="main" className="main">
                 <Outlet/>
               
