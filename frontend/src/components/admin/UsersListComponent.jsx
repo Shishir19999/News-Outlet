@@ -1,5 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import API from '../../config/API';
+import { Link } from 'react-router-dom';
 export default function UsersListComponent() {
     const [users,setUsers]=useState([]);
 
@@ -27,8 +28,9 @@ export default function UsersListComponent() {
         <div className='card'>
             <div className='card-body'>
                 <div className="row">
-                    <div className="col-md-12">
-                        <h1>Users List</h1>
+                    <div className="col-md-12 mb-3">
+                        <h2> <i className="bi bi-people"></i> Users List</h2>
+                        <hr />
                     </div>
                     <div className="col-md-12">
                     <table className='table table-bordered'>
@@ -54,7 +56,7 @@ export default function UsersListComponent() {
                                     <td>{user.role}</td>
                                     <td><img src={user.image} alt={user.name} style={{width:100}}/></td>
                                     <td>
-                                        <button className='btn btn-danger'>Delete</button>
+                                        <Link to={`/admin/user-details/${user._id}`} className='btn btn-primary'>View</Link>
                                     </td>
                                 </tr>
                             )

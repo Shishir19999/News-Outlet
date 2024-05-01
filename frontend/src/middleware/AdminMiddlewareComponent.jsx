@@ -1,53 +1,70 @@
-import React,{useEffect,useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import "../css/admin.css";
 import API from '../config/API';
 
 export default function AdminMiddlewareComponent() {
   let token = localStorage.getItem('token');
-  const [getToken,setToken]=useState("");
-  const [isLoading,setIsLoading]=useState(true);
+  const [getToken, setToken] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+  const [Profile, setProfile] = useState({});
 
-  const checkToken=()=>{
-    let sendData={
-      'token':token
+  const checkToken = () => {
+    let sendData = {
+      'token': token
     }
-    API.post('/login/toke-check',sendData).then((res)=>{
-      if(res.data.success){
+    API.post('/login/toke-check', sendData).then((res) => {
+      if (res.data.success) {
         setToken(res.data.success);
         setIsLoading(false);
-      }else{
+      } else {
         setToken(false);
         setIsLoading(false);
       }
-    }).catch((e)=>{
+    }).catch((e) => {
       console.log(e);
     })
   }
 
-  useEffect(()=>{
-    checkToken();
-  },[]);
+  const getProfile = () => {
 
-  const logout =()=>{
-    localStorage.clear('token');
-    window.location="/login";
+    API.get('/user/profile/user', {
+      headers: {
+        'authorization': localStorage.getItem('token')
+      }
+    }).then((res) => {
+      setProfile(res.data);
+    }).catch((e) => {
+      console.log(e);
+    })
+
   }
-  
 
-  if(isLoading){
+  useEffect(() => {
+    checkToken();
+    getProfile();
+  }, []);
+
+  const logout = () => {
+    localStorage.clear('token');
+    window.location = "/login";
+  }
+
+
+  if (isLoading) {
     return <h1>Loading...</h1>
-  }else{
-    if(getToken){
+  } else {
+    if (getToken) {
       return (
         <div>
-           <div>
+          <div>
             <header id="header" className="header fixed-top d-flex align-items-center">
               <div className="d-flex align-items-center justify-content-between">
-                <Link to="/admin" className="logo d-flex align-items-center">              
+                <Link to="/admin" className="logo d-flex align-items-center">
                   <span className="d-none d-lg-block">Admin Panel</span>
                 </Link>
-                <i className="bi bi-list toggle-sidebar-btn" />
+                <Link to="/">Visit Web Site</Link>
+                
               </div>
               <nav className="header-nav ms-auto">
                 <ul className="d-flex align-items-center">
@@ -55,23 +72,26 @@ export default function AdminMiddlewareComponent() {
                     <Link className="nav-link nav-icon search-bar-toggle " to="#">
                       <i className="bi bi-search" />
                     </Link>
+                   
                   </li>
-                 
+
                   <li className="nav-item dropdown pe-3">
                     <Link className="nav-link nav-profile d-flex align-items-center pe-0" to="#" data-bs-toggle="dropdown">
-                      <img src="" alt="Profile" className="rounded-circle" />
-                      <span className="d-none d-md-block dropdown-toggle ps-2">Admin</span>
+                      <img src={Profile && Profile.image} alt="Profile" className="rounded-circle" />
+                      <span className="d-none d-md-block dropdown-toggle ps-2">
+                        <span>{Profile && Profile.name}</span>
+                      </span>
                     </Link>
                     <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                       <li className="dropdown-header">
-                        <h6>Kevin Anderson</h6>
-                        <span>Web Designer</span>
+                        <h6>Role</h6>
+                        <span>{Profile && Profile.role }</span>
                       </li>
                       <li>
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="users-profile.html">
+                        <Link className="dropdown-item d-flex align-items-center" to="/admin/my-profile">
                           <i className="bi bi-person" />
                           <span>My Profile</span>
                         </Link>
@@ -80,7 +100,7 @@ export default function AdminMiddlewareComponent() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="users-profile.html">
+                        <Link className="dropdown-item d-flex align-items-center" href="users-profile.html">
                           <i className="bi bi-gear" />
                           <span>Account Settings</span>
                         </Link>
@@ -90,7 +110,7 @@ export default function AdminMiddlewareComponent() {
                       </li>
                       <li>
                         <button className="dropdown-item d-flex align-items-center"
-                        onClick={logout} >
+                          onClick={logout} >
                           <i className="bi bi-box-arrow-right" />
                           <span>Sign Out</span>
                         </button>
@@ -100,8 +120,8 @@ export default function AdminMiddlewareComponent() {
                 </ul>
               </nav>
             </header>
-          
-            <Link id="sidebar" className="sidebar">
+
+            <aside id="sidebar" className="sidebar">
               <ul className="sidebar-nav" id="sidebar-nav">
                 <li className="nav-item">
                   <Link className="nav-link " to="/admin">
@@ -117,7 +137,7 @@ export default function AdminMiddlewareComponent() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" to="#">
-                  <i className="bi bi-newspaper"/><span>News</span><i className="bi bi-chevron-down ms-auto" />
+                    <i className="bi bi-newspaper" /><span>News</span><i className="bi bi-chevron-down ms-auto" />
                   </Link>
                   <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
                     <li>
@@ -130,35 +150,35 @@ export default function AdminMiddlewareComponent() {
                         <i className="bi bi-circle" /><span>Show news</span>
                       </Link>
                     </li>
-                    
+
                   </ul>
                 </li>
-                
+
               </ul>
-            </Link>
+            </aside>
             <main id="main" className="main">
-                <Outlet/>
-              
+              <Outlet />
+
             </main>
-            
+
             <footer id="footer" className="footer">
               <div className="copyright">
-                © Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+                © Copyright <strong><span>Admin</span></strong>. All Rights Reserved
               </div>
               <div className="credits">
-                Designed by <Link to="/admin">MERN7AM</Link>
+                Designed by <Link to="/admin">MERN_NEWS</Link>
               </div>
             </footer>
             <Link to="/admin" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short" /></Link>
           </div>
-           
+
         </div>
       )
-    }else{
-      window.location="/login"
+    } else {
+      window.location = "/login"
     }
   }
-  
- 
- 
+
+
+
 }
