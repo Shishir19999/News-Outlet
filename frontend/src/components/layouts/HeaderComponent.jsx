@@ -27,17 +27,26 @@ export default function HeaderComponent() {
               </li>
               {token ? <div>
                 <li className="nav-item">
-                  <Link className="nav-link" to="/admin">Goto Dashboard</Link>
+                  <Link className="nav-link" to="/admin">Dashboard</Link>
                 </li>
               </div> :
-                <React.Fragment>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/login">Login</Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link className="nav-link" to="/register">Register</Link>
-                  </li>
-                </React.Fragment>
+              <li className="nav-item dropdown">
+              <Link 
+                className="nav-link dropdown-toggle" 
+                to="#" 
+                id="navbarDropdown" 
+                role="button" 
+                data-bs-toggle="dropdown" 
+                aria-haspopup="true" 
+                aria-expanded="false"
+              >
+                Account
+              </Link>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                <Link className="dropdown-item" to="/login">Login</Link>
+                <Link className="dropdown-item" to="/register">Register</Link>
+              </div>
+            </li>
               }
 
             </ul>
