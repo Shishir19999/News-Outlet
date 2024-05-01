@@ -13,6 +13,8 @@ import ShowNewsComponent from '../components/admin/ShowNewsComponent';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegisterComponent from '../components/auth/RegisterComponent';
 import UsersListComponent from '../components/admin/UsersListComponent';
+import MyProfileComponent from '../components/admin/MyProfileComponent';
+import UserDetailsComponent from '../components/admin/UserDetailsComponent';
 
 export default function RouterComponent() {
   return (
@@ -29,6 +31,9 @@ export default function RouterComponent() {
         <Route path="/admin" element={<AdminMiddlewareComponent />}>
           <Route path="/admin" element={<DashboardComponent />} />
           <Route path="users-list" element={<UsersListComponent />} />
+          <Route path="my-profile" element={<MyProfileComponent />} />
+          <Route path="user-details/:id" element={<UserDetailsComponent />} />
+
           <Route path="add-news" element={<AddNewsComponent />} />
           <Route path="show-news" element={<ShowNewsComponent />} />
 

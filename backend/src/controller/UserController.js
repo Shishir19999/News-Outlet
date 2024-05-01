@@ -1,3 +1,4 @@
+import TokenMiddleware from "../middleware/TokenMiddleware.js";
 import User from "../models/User.js";
 import fs from "fs";
 
@@ -6,8 +7,23 @@ class UserController {
 
     async index(req, res) {
         try {
-            const users = await User.find({});
-            res.status(200).json(users);
+            let token = req.headers.authorization;
+            let response =await TokenMiddleware.check(token);
+            if(response){
+               let role = response.pay_load.role;
+                if(role === "admin"){
+                    let id = response.pay_load._id;
+                    let users = await User.find({ _id: { $ne: id } });
+                    res.status(200).json(users);
+                }else{
+                    let user = await User.findById(response.pay_load._id);
+                    let users = [];
+                    users.push(user);
+                    res.status(200).json(users);
+                }
+            }else{
+                res.status(500).json({ message: "Token not valid" });
+            }
         } catch (error) {
             res.status(500).json({ message: error });
         }
@@ -107,6 +123,21 @@ class UserController {
         }
     }
 
+    async getProfile(req, res) {
+        try {
+            let token = req.headers.authorization;
+            let response =await TokenMiddleware.check(token);
+            if(response){
+                let id = response.pay_load._id;
+                let user = await User.findById(id);
+                res.status(200).json(user);
+            }else{
+                res.status(500).json({ message: "Token not valid" });
+            }
+        } catch (error) {
+            res.status(500).json({ message: error });
+        }
+    }
 
 }
 
