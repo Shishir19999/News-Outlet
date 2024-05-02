@@ -44,6 +44,8 @@ export default function HeaderComponent() {
               </Link>
               <div className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <Link className="dropdown-item" to="/login">Login</Link>
+                <div class="dropdown-divider"></div>
+
                 <Link className="dropdown-item" to="/register">Register</Link>
               </div>
             </li>
