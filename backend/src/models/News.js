@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const newsSchema = new mongoose.Schema({
-    category: {
+    categoryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Category",
         required: true,
@@ -36,5 +36,17 @@ const newsSchema = new mongoose.Schema({
 
 
 });
+
+
+newsSchema.methods.toJSON = function(){
+    const obN = this.toObject();
+    if(obN.image){
+        obN.image = `${process.env.PUBLIC_URL}/news/${obN.image}`;
+    }else{
+        obN.image = `${process.env.PUBLIC_URL}/icons/notfound.png`;
+    }
+    return obN;
+}
+
 
 export default mongoose.model("News", newsSchema);
