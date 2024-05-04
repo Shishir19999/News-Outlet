@@ -100,10 +100,10 @@ export default function AdminMiddlewareComponent() {
                         <hr className="dropdown-divider" />
                       </li>
                       <li>
-                        <Link className="dropdown-item d-flex align-items-center" href="users-profile.html">
+                        <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
                           <i className="bi bi-gear" />
                           <span>Account Settings</span>
-                        </Link>
+                        </a>
                       </li>
                       <li>
                         <hr className="dropdown-divider" />
@@ -140,6 +140,11 @@ export default function AdminMiddlewareComponent() {
                     <i className="bi bi-newspaper" /><span>News</span><i className="bi bi-chevron-down ms-auto" />
                   </Link>
                   <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
+                  <li>
+                      <Link to="/admin/manage-category">
+                        <i className="bi bi-circle" /><span>Category</span>
+                      </Link>
+                    </li>
                     <li>
                       <Link to="/admin/add-news">
                         <i className="bi bi-circle" /><span>Add news</span>
@@ -182,3 +187,4 @@ export default function AdminMiddlewareComponent() {
 
 
 }
+

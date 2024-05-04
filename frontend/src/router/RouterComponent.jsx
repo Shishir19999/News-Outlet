@@ -15,6 +15,7 @@ import RegisterComponent from '../components/auth/RegisterComponent';
 import UsersListComponent from '../components/admin/UsersListComponent';
 import MyProfileComponent from '../components/admin/MyProfileComponent';
 import UserDetailsComponent from '../components/admin/UserDetailsComponent';
+import ManageCategoryComponent from '../components/admin/ManageCategoryComponent';
 
 export default function RouterComponent() {
   return (
@@ -33,6 +34,7 @@ export default function RouterComponent() {
           <Route path="users-list" element={<UsersListComponent />} />
           <Route path="my-profile" element={<MyProfileComponent />} />
           <Route path="user-details/:id" element={<UserDetailsComponent />} />
+          <Route path="manage-category" element={<ManageCategoryComponent />} />
 
           <Route path="add-news" element={<AddNewsComponent />} />
           <Route path="show-news" element={<ShowNewsComponent />} />

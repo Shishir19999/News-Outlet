@@ -4,10 +4,12 @@ import cors from 'cors';
 import Connection from './config/Connection.js';
 import router from './routes/index.js';
 import UserTableSeeder from './config/Seeder/UserTableSeeder.js';
+import CategoryTableSeeder from './config/Seeder/CategoryTableSeeder.js';
 
 dotenv.config();
 Connection.connect();
 UserTableSeeder.run();
+CategoryTableSeeder.run();
 const app = express();
 app.use(express.json());
 app.use(cors());
