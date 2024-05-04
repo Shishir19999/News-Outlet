@@ -1384,7 +1384,7 @@ export default function FooterComponent() {
           target="_blank"
         />
         <p>
-          ©2019 Not Really
+          ©2024 Not Really
         </p>
       </div>
     </div>
