@@ -58,7 +58,7 @@ export default function HomeComponent() {
               <div className="card-body">
                 <h5 className="card-title">{item.title}</h5>
                 <p className="card-text">{item.summary}</p>
-                <a href={`/news/${item.slug}`} className="btn btn-primary">Read more</a>
+                <a href={`/news-details/${item.slug}`} className="btn btn-primary">Read more</a>
               </div>
             </div>
           </div>

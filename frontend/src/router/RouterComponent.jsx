@@ -27,7 +27,7 @@ export default function RouterComponent() {
         <Route path="news" element={<NewsComponent />} />
         <Route path="login" element={<LoginComponent />} />
         <Route path="register" element={<RegisterComponent />} />
-        <Route path="news-details/:id" element={<NewsDetatilsComponent />} />
+        <Route path="news-details/:slug" element={<NewsDetatilsComponent />} />
         {/* ==============Admin Panel============= */}
         <Route path="/admin" element={<AdminMiddlewareComponent />}>
           <Route path="/admin" element={<DashboardComponent />} />
