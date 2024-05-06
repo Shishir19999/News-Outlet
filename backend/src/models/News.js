@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import slugfy from "slugify";
 
 const newsSchema = new mongoose.Schema({
     categoryId: {
@@ -47,6 +48,11 @@ newsSchema.methods.toJSON = function(){
     }
     return obN;
 }
+
+newsSchema.pre("save", function(next){
+    this.slug = slugfy(this.slug, { lower: true });
+    next();
+});
 
 
 export default mongoose.model("News", newsSchema);
