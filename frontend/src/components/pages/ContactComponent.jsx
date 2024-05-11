@@ -1,8 +1,46 @@
 import React from 'react'
+import * as yup from 'yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import Swal from 'sweetalert2'
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
+import API from '../../config/API'
+
+let contactSchema = yup.object().shape({
+  name: yup.string().required(),
+  email: yup.string().email().required(),
+  subject: yup.string().required(),
+  message: yup.string().required()
+
+});
 
 export default function ContactComponent() {
+
+  const { setError, register, reset, handleSubmit, formState: { errors } } =
+    useForm({
+      resolver: yupResolver(contactSchema)
+    });
+
+    const sendMail = (data) => {
+      API.post('/contact', data).then((res) => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: res.data.message
+        })
+        reset()
+      }).catch((e) => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: e.response.data.message
+        })
+      })
+
+    }
+
+
   return (
     <div className='container'>
       <HeaderComponent />
@@ -13,33 +51,47 @@ export default function ContactComponent() {
       </div>
       <div className="row">
         <div className="col-md-8">
-          <form action="">
+          <form action="" onSubmit={handleSubmit(sendMail)}>
             <div className="form-group mb-2">
-              <label htmlFor="name">Name</label>
-              <input type="text" className="form-control" id="name" />
+              <label htmlFor="name">Name:
+                {errors.name && <span className='text-danger' >{errors.name.message}</span>}
+              </label>
+              <input type="text"
+                {...register("name")}
+                className="form-control" id="name" />
             </div>
             <div className="form-group mb-2">
-              <label htmlFor="email">Email</label>
-              <input type="email" className="form-control" id="email" />
+              <label htmlFor="email">Email:
+                {errors.email && <span className='text-danger' >{errors.email.message}</span>}
+              </label>
+              <input type="email" name="email"
+                {...register("email")}
+                className="form-control" id="email" />
             </div>
             <div className="form-group mb-2">
-              <label htmlFor="subject">Subject</label>
-              <input type="text" className="form-control" id="subject" />
+              <label htmlFor="subject">Subject:
+                {errors.subject && <span className='text-danger' >{errors.subject.message}</span>}
+              </label>
+              <input type="text" name='subject'
+                {...register("subject")}
+                className="form-control" id="subject" />
             </div>
             <div className="form-group mb-2">
-              <label htmlFor="message">Message</label>
-              <textarea className="form-control" id="message" rows="3"></textarea>
+              <label htmlFor="message">Message:
+                {errors.message && <span className='text-danger' >{errors.message.message}</span>}
+              </label>
+              <textarea name='message'
+                {...register('message')}
+                className="form-control" id="message" ></textarea>
             </div>
             <div className="form-group">
-              <button  className="btn btn-primary">Submit</button>
+              <button className="btn btn-primary">Submit</button>
             </div>
           </form>
         </div>
         <div className="col-md-4">
-         
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3958.154007198524!2d112.75272531477368!3d-7.257472994764192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dd7fcf5d2f9c4e5%3A0x1b3f1d1b7d2f9a3b!2sJl.%20Raya%20Tlogomas%2C%20Tlogomas%2C%20Kec.%20Lowokwaru%2C%20Kota%20Malang%2C%20Jawa%20Timur%2065141!5e0!3m2!1sid!2sid!4v1630213041748!5m2!1sid!2sid" width="100%" height="300" style={{border:0}} allowfullscreen="" loading="lazy"></iframe>
+
           
-       
         </div>
       </div>
 
