@@ -19,8 +19,7 @@ class ContactController{
                 minVersion: "TLSv1.2"
             }
         });
-
-        
+    
         this.index = this.index.bind(this);
     }
 
