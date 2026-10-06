@@ -1,7 +1,7 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function HeaderComponent() {
+  const navigate = useNavigate();
   const token = localStorage.getItem('token') ?? null;
   return (
     <div>
@@ -52,8 +52,12 @@ export default function HeaderComponent() {
               }
 
             </ul>
-            <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+            <form className="d-flex" role="search" onSubmit={(e) => {
+              e.preventDefault();
+              const q = new FormData(e.currentTarget).get('q') || '';
+              navigate(q ? `/news?search=${encodeURIComponent(q)}` : '/news');
+            }}>
+              <input className="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" />
               <button className="btn btn-outline-success" type="submit">Search</button>
             </form>
           </div>

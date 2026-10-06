@@ -3,3 +3,19 @@ backend/node_modules
 backend/.env
 
 
+
+frontend/.env
+frontend/dist
+node_modules/
+.env
+.env.*
+!.env.example
+!.env.docker.example
+!.env-example
+*.pem
+*.key
+.next/
+dist/
+build/
+coverage/
+*.log

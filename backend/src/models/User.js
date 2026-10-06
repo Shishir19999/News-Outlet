@@ -31,6 +31,11 @@ const userSchema = new mongoose.Schema({
     },
     image:{
         type: String,
+    },
+    // Incremented on logout; tokens carrying an older value are rejected.
+    tokenVersion:{
+        type: Number,
+        default: 0,
     }
 
 }, {
@@ -38,9 +43,9 @@ const userSchema = new mongoose.Schema({
     versionKey: false
 });
 
-userSchema.pre("save", async function(next){
+userSchema.pre("save", async function(){
     if(!this.isModified("password")){
-        next();
+        return;
     }
     this.password = await bcrypt.hash(this.password, 10);
 });
@@ -59,6 +64,7 @@ userSchema.methods.toJSON = function(){
         userObject.image = `${process.env.PUBLIC_URL}/icons/notfound.png`;
     }
     delete userObject.password;
+    delete userObject.tokenVersion;
     return userObject;
 }
 
@@ -68,6 +74,7 @@ userSchema.methods.generateToken = function(){
     let pay_load = {
         _id: this._id,
         role: this.role,
+        tokenVersion: this.tokenVersion || 0,
     }
     const token = jwt.sign({pay_load}, secret, {expiresIn:exp_date});
     return token;

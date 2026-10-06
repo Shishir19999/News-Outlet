@@ -1,0 +1,43 @@
+services:
+  mongo:
+    image: mongo:8.0
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    depends_on:
+      - mongo
+    # Secrets (JWT_SECRET, SMTP_*, SEED_*, ...) come from backend/.env (copy backend/.env-example).
+    env_file: ./backend/.env
+    # These override the same keys from backend/.env for the container network.
+    environment:
+      PORT: "8080"
+      MODE: production
+      HTTP_S: http://localhost
+      PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      MONGODB_URL: mongodb://mongo:27017/news
+    ports:
+      - "8080:8080"
+    volumes:
+      - news_images:/app/public/news
+      - user_images:/app/public/users
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # URL the browser uses to reach the backend
+        VITE_API_URL: ${VITE_API_URL:-http://localhost:8080}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8081:80"
+
+volumes:
+  mongo_data:
+  news_images:
+  user_images:

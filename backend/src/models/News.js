@@ -49,9 +49,8 @@ newsSchema.methods.toJSON = function(){
     return obN;
 }
 
-newsSchema.pre("save", function(next){
+newsSchema.pre("save", function(){
     this.slug = slugfy(this.slug, { lower: true });
-    next();
 });
 
 

@@ -1,6 +1,7 @@
 import TokenMiddleware from "../middleware/TokenMiddleware.js";
 import User from "../models/User.js";
 import fs from "fs";
+import mongoose from "mongoose";
 
 
 class UserController {
@@ -25,7 +26,7 @@ class UserController {
                 res.status(500).json({ message: "Token not valid" });
             }
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
@@ -38,33 +39,45 @@ class UserController {
             let email = req.body.email;
             let user = await User.findOne({ email }).countDocuments();
             if (user > 0) {
-                return res.status(500).json({ email: "User already exists" });
+                return res.status(409).json({ email: "User already exists" });
             } else {
-                await User.create({ ...req.body, image });
+                // never let public registration choose a role
+                const { role, ...body } = req.body;
+                await User.create({ ...body, image });
                 res.status(201).json({ success: true, message: "User created successfully" });
             }
         } catch (error) {
-            res.status(500).json({ message: error });
+            if (error.name === 'ValidationError') {
+                return res.status(422).json({ message: error.message });
+            }
+            res.status(500).json({ message: error.message });
         }
     }
 
     async show(req, res) {
         try {
-            const user = await User.findById(req.params.id);
+            const user = mongoose.Types.ObjectId.isValid(req.params.id) ? await User.findById(req.params.id) : null;
+            if (!user) return res.status(404).json({ message: "User not found" });
             res.status(200).json(user);
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
     async update(req, res) {
         try {
             let id = req.params.id;
-            await User.findByIdAndUpdate(id, { ...req.body });
+            let body = { ...req.body };
+            // only admins may change roles; password is hashed only on save(), so go through it
+            if (req.user.role !== 'admin') delete body.role;
+            let user = await User.findById(id);
+            if (!user) return res.status(404).json({ message: "User not found" });
+            user.set(body);
+            await user.save();
             res.status(200).json({ success: true, message: "User updated successfully" });
 
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
@@ -72,6 +85,7 @@ class UserController {
         try {
             let id = req.params.id;
             let user = await User.findById(id);
+            if (!user) return res.status(404).json({ message: "User not found" });
 
             if (user.image) {
                 let path = `./public/users/${user.image}`;
@@ -83,7 +97,7 @@ class UserController {
             res.status(200).json({ success: true, message: "User deleted successfully" });
 
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
@@ -92,17 +106,19 @@ class UserController {
         try {
             let id = req.params.id;
             let user = await User.findById(id);
+            if (!user) return res.status(404).json({ message: "User not found" });
             if (user.image) {
                 let path = `./public/users/${user.image}`;
                 if (fs.existsSync(path)) {
                     fs.unlinkSync(path);
                 }
             }
+            if (!req.file) return res.status(400).json({ message: "Image file is required" });
             let image = req.file.filename;
             await User.findByIdAndUpdate(id, { image });
             res.status(200).json({ success: true, message: "Image uploaded successfully" });
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
@@ -110,6 +126,7 @@ class UserController {
         try {
             let id = req.params.id;
             let user = await User.findById(id);
+            if (!user) return res.status(404).json({ message: "User not found" });
             if (user.image) {
                 let path = `./public/users/${user.image}`;
                 if (fs.existsSync(path)) {
@@ -119,7 +136,7 @@ class UserController {
             await User.findByIdAndUpdate(id, { image: "" });
             res.status(200).json({ success: true, message: "Profile image deleted successfully" });
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 
@@ -135,7 +152,7 @@ class UserController {
                 res.status(500).json({ message: "Token not valid" });
             }
         } catch (error) {
-            res.status(500).json({ message: error });
+            res.status(500).json({ message: error.message });
         }
     }
 

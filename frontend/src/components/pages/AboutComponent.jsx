@@ -1,4 +1,3 @@
-import React from 'react'
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
 

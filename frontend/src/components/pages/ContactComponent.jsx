@@ -1,4 +1,3 @@
-import React from 'react'
 import * as yup from 'yup';
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -17,7 +16,7 @@ let contactSchema = yup.object().shape({
 
 export default function ContactComponent() {
 
-  const { setError, register, reset, handleSubmit, formState: { errors } } =
+  const { register, reset, handleSubmit, formState: { errors } } =
     useForm({
       resolver: yupResolver(contactSchema)
     });

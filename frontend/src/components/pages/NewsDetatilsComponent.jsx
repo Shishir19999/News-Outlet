@@ -1,4 +1,4 @@
-import React,{useEffect,useState} from 'react'
+import {useEffect,useState} from 'react';
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
 import {Link, useParams} from 'react-router-dom'
@@ -10,18 +10,21 @@ export default function NewsDetatilsComponent() {
   const [relatedNews, setRelatedNews] = useState([])
 
 
-  const getNews = () => {
+  useEffect(() => {
+    // Fetch once per slug (depending on `news` here caused an endless request loop).
+    let cancelled = false
     API.get(`/news/news-details/${slug}`).then((res) => {
+      if (cancelled) return
       setNews(res.data.findNews)
       setRelatedNews(res.data.relatedNews)
     }).catch((e) => {
+      if (cancelled) return
+      setNews({ title: 'News not found' })
+      setRelatedNews([])
       console.log(e)
     })
-  }
-
-  useEffect(() => {
-    getNews()
-  },[news]);
+    return () => { cancelled = true }
+  },[slug]);
   
   return (
     <div className='container'>

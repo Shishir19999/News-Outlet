@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { Link, Navigate, Outlet } from 'react-router-dom';
 import "../css/admin.css";
 import API from '../config/API';
 
@@ -9,6 +9,7 @@ export default function AdminMiddlewareComponent() {
   const [isLoading, setIsLoading] = useState(true);
   const [Profile, setProfile] = useState({});
 
+  useEffect(() => {
   const checkToken = () => {
     let sendData = {
       'token': token
@@ -40,13 +41,20 @@ export default function AdminMiddlewareComponent() {
 
   }
 
-  useEffect(() => {
     checkToken();
     getProfile();
-  }, []);
+  }, [token]);
 
-  const logout = () => {
-    localStorage.clear('token');
+  // Revoke the token server-side first; always clear it locally even if the call fails.
+  const logout = async () => {
+    try {
+      await API.post('/logout', null, {
+        headers: { 'authorization': localStorage.getItem('token') }
+      });
+    } catch (e) {
+      console.log(e);
+    }
+    localStorage.removeItem('token');
     window.location = "/login";
   }
 
@@ -140,11 +148,13 @@ export default function AdminMiddlewareComponent() {
                     <i className="bi bi-newspaper" /><span>News</span><i className="bi bi-chevron-down ms-auto" />
                   </Link>
                   <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-                  <li>
+                  {Profile && Profile.role === 'admin' && (
+                    <li>
                       <Link to="/admin/manage-category">
                         <i className="bi bi-circle" /><span>Category</span>
                       </Link>
                     </li>
+                  )}
                     <li>
                       <Link to="/admin/add-news">
                         <i className="bi bi-circle" /><span>Add news</span>
@@ -180,7 +190,7 @@ export default function AdminMiddlewareComponent() {
         </div>
       )
     } else {
-      window.location = "/login"
+      return <Navigate to="/login" replace />;
     }
   }
 
