@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -151,7 +151,7 @@ export default function ManageCategoryComponent() {
                           <td>
                             <button className="btn btn-info">Edit</button>
                             <button
-                              onClick={(e) => deleteCategory(category._id)}
+                              onClick={() => deleteCategory(category._id)}
                               className="btn btn-danger"
                             >
                               Delete

@@ -1,38 +1,43 @@
-import React,{useEffect,useState} from 'react'
+import {useEffect,useState} from 'react';
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
+import PaginationComponent from '../layouts/PaginationComponent'
+import { useSearchParams } from 'react-router-dom'
 import API from '../../config/API'
 
 export default function NewsComponent() {
   const [news, setNews] = useState([])
-  const [search, setSearch] = useState('')
+  const [searchParams] = useSearchParams()
+  const [search, setSearch] = useState(searchParams.get('search') || '')
+  const [page, setPage] = useState(1)
+  const [pages, setPages] = useState(1)
 
-  const getNews = () => {
-    API.get('/news').then((res) => {
-      setNews(res.data)
-    }).catch((e) => {
-      console.log(e)
-    })
+  useEffect(() => {
+    // debounce typing so each keystroke does not hit the API
+    const timer = setTimeout(() => {
+      API.get('/news', { params: { page, limit: 9, search: search || undefined } }).then((res) => {
+        setNews(res.data.news)
+        setPages(res.data.pages)
+      }).catch((e) => {
+        console.log(e)
+      })
+    }, 250);
+    return () => clearTimeout(timer);
+  },[page, search]);
+
+  // Re-sync the box and page when the URL query changes (adjusting state during render, not in an effect)
+  const [prevSearchParams, setPrevSearchParams] = useState(searchParams)
+  if (prevSearchParams !== searchParams) {
+    setPrevSearchParams(searchParams)
+    setSearch(searchParams.get('search') || '')
+    setPage(1)
   }
 
   const searchNews = (e) => {
     setSearch(e.target.value)
-    if(search.length > 0) {
-      API.get(`/news?search=${e.target.value}`).then((res) => {
-        setNews(res.data)
-      }).catch((e) => {
-        console.log(e)
-      })
-    }else{
-      getNews()
-    }
-  
-
+    setPage(1)
   }
 
-  useEffect(() => {
-    getNews()
-  },[]);
   return (
     <div className='container'>
       <HeaderComponent />
@@ -40,12 +45,12 @@ export default function NewsComponent() {
         <div className="col-md-12">
           <h1>News List</h1>
           <hr />
-          <input type="search" onChange={searchNews} placeholder='enter any keywords' className='form-control' />
+          <input type="search" value={search} onChange={searchNews} placeholder='enter any keywords' className='form-control' />
         </div>
       </div>
       <div className="row">
-      {news && news.map((item,index) => (
-          <div className="col-md-4" key={index}>
+      {news && news.map((item) => (
+          <div className="col-md-4 mb-3" key={item._id}>
             <div className="card">
               <img src={item.image} className="card-img-top" height="200" alt="..." />
               <div className="card-body">
@@ -55,11 +60,10 @@ export default function NewsComponent() {
               </div>
             </div>
           </div>
-          
         ))}
-        
-       
+        {news && news.length === 0 && <p>No news found.</p>}
       </div>
+      <PaginationComponent page={page} pages={pages} onChange={setPage} />
       <FooterComponent />
 
     </div>

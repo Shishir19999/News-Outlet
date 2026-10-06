@@ -1,22 +1,23 @@
-import React,{useEffect,useState} from 'react'
+import {useEffect,useState} from 'react';
 import HeaderComponent from '../layouts/HeaderComponent'
 import FooterComponent from '../layouts/FooterComponent'
+import PaginationComponent from '../layouts/PaginationComponent'
 import API from '../../config/API'
 
 export default function HomeComponent() {
   const [news, setNews] = useState([])
 
-  const getNews = () => {
-    API.get('/news').then((res) => {
-      setNews(res.data)
+  const [page, setPage] = useState(1)
+  const [pages, setPages] = useState(1)
+
+  useEffect(() => {
+    API.get('/news', { params: { page, limit: 6 } }).then((res) => {
+      setNews(res.data.news)
+      setPages(res.data.pages)
     }).catch((e) => {
       console.log(e)
     })
-  }
-
-  useEffect(() => {
-    getNews()
-  },[]);
+  },[page]);
   return (
     <div className='container'>
       <HeaderComponent />
@@ -51,8 +52,8 @@ export default function HomeComponent() {
         </div>
       </div>
       <div className="row">
-        {news && news.map((item,index) => (
-          <div className="col-md-4" key={index}>
+        {news && news.map((item) => (
+          <div className="col-md-4 mb-3" key={item._id}>
             <div className="card">
               <img src={item.image} className="card-img-top" height="200" alt="..." />
               <div className="card-body">
@@ -66,6 +67,7 @@ export default function HomeComponent() {
         ))}
       
       </div>
+      <PaginationComponent page={page} pages={pages} onChange={setPage} />
       <FooterComponent />
     </div>
   )

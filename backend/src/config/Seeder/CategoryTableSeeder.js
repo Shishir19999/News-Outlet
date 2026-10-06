@@ -19,17 +19,21 @@ class CategoryTableSeeder{
             {
                 name: "Books",
                 description: "This is a books category"
+            },
+            {
+                name: "Technology",
+                description: "This is a technology category"
             }
 
         ];
 
-        categoryData.forEach(async (cat) => {
+        for(const cat of categoryData){
             let findCat = await Category.findOne({name: cat.name});
             if(!findCat){
                 let newCat = new Category(cat);
                 await newCat.save();
             }
-        })
+        }
     }
 
 
