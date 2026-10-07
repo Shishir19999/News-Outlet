@@ -1,200 +1,76 @@
 import { useEffect, useState } from 'react';
-import { Link, Navigate, Outlet } from 'react-router-dom';
-import "../css/admin.css";
-import API from '../config/API';
+import { Link, NavLink, Navigate, Outlet, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { ThemeToggle, Logo } from '../components/layouts/HeaderComponent';
+import DemoBanner from '../components/layouts/DemoBanner';
+import { SITE_NAME } from '../config/env';
+import useSeo from '../hooks/useSeo';
+import { Skeleton } from '../components/ui/States';
+
+const LINKS = [
+  ['/admin', 'bi-speedometer2', 'Dashboard', false, true],
+  ['/admin/show-news', 'bi-newspaper', 'Articles', false, false],
+  ['/admin/add-news', 'bi-plus-circle', 'New article', false, false],
+  ['/admin/manage-category', 'bi-tags', 'Categories', true, false],
+  ['/admin/comments', 'bi-chat-left-text', 'Comments', true, false],
+  ['/admin/subscribers', 'bi-envelope-paper', 'Subscribers', true, false],
+  ['/admin/users-list', 'bi-people', 'Users', true, false],
+  ['/admin/my-profile', 'bi-person-circle', 'My profile', false, false],
+];
 
 export default function AdminMiddlewareComponent() {
-  let token = localStorage.getItem('token');
-  const [getToken, setToken] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [Profile, setProfile] = useState({});
+  useSeo({ title: 'Admin' });
+  const { token, user, isAdmin, logout } = useAuth();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const [drawer, setDrawer] = useState({ open: false, at: location.pathname });
+  const open = drawer.open && drawer.at === location.pathname;
 
   useEffect(() => {
-  const checkToken = () => {
-    let sendData = {
-      'token': token
-    }
-    API.post('/login/toke-check', sendData).then((res) => {
-      if (res.data.success) {
-        setToken(res.data.success);
-        setIsLoading(false);
-      } else {
-        setToken(false);
-        setIsLoading(false);
-      }
-    }).catch((e) => {
-      console.log(e);
-    })
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  if (!token) return <Navigate to="/login" replace />;
+  if (!user) {
+    return (
+      <div className="container section" role="status" aria-label="Loading">
+        <Skeleton className="skeleton-title" /><Skeleton className="skeleton-row" /><Skeleton className="skeleton-row" />
+      </div>
+    );
   }
 
-  const getProfile = () => {
+  const links = LINKS.filter(([, , , adminOnly]) => isAdmin || !adminOnly);
+  const signOut = async () => { await logout(); navigate('/'); };
 
-    API.get('/user/profile/user', {
-      headers: {
-        'authorization': localStorage.getItem('token')
-      }
-    }).then((res) => {
-      setProfile(res.data);
-    }).catch((e) => {
-      console.log(e);
-    })
-
-  }
-
-    checkToken();
-    getProfile();
-  }, [token]);
-
-  // Revoke the token server-side first; always clear it locally even if the call fails.
-  const logout = async () => {
-    try {
-      await API.post('/logout', null, {
-        headers: { 'authorization': localStorage.getItem('token') }
-      });
-    } catch (e) {
-      console.log(e);
-    }
-    localStorage.removeItem('token');
-    window.location = "/login";
-  }
-
-
-  if (isLoading) {
-    return <h1>Loading...</h1>
-  } else {
-    if (getToken) {
-      return (
-        <div>
-          <div>
-            <header id="header" className="header fixed-top d-flex align-items-center">
-              <div className="d-flex align-items-center justify-content-between">
-                <Link to="/admin" className="logo d-flex align-items-center">
-                  <span className="d-none d-lg-block">Admin Panel</span>
-                </Link>
-                <Link to="/">Visit Web Site</Link>
-                
-              </div>
-              <nav className="header-nav ms-auto">
-                <ul className="d-flex align-items-center">
-                  <li className="nav-item d-block d-lg-none">
-                    <Link className="nav-link nav-icon search-bar-toggle " to="#">
-                      <i className="bi bi-search" />
-                    </Link>
-                   
-                  </li>
-
-                  <li className="nav-item dropdown pe-3">
-                    <Link className="nav-link nav-profile d-flex align-items-center pe-0" to="#" data-bs-toggle="dropdown">
-                      <img src={Profile && Profile.image} alt="Profile" className="rounded-circle" />
-                      <span className="d-none d-md-block dropdown-toggle ps-2">
-                        <span>{Profile && Profile.name}</span>
-                      </span>
-                    </Link>
-                    <ul className="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                      <li className="dropdown-header">
-                        <h6>Role</h6>
-                        <span>{Profile && Profile.role }</span>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <Link className="dropdown-item d-flex align-items-center" to="/admin/my-profile">
-                          <i className="bi bi-person" />
-                          <span>My Profile</span>
-                        </Link>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <a className="dropdown-item d-flex align-items-center" href="users-profile.html">
-                          <i className="bi bi-gear" />
-                          <span>Account Settings</span>
-                        </a>
-                      </li>
-                      <li>
-                        <hr className="dropdown-divider" />
-                      </li>
-                      <li>
-                        <button className="dropdown-item d-flex align-items-center"
-                          onClick={logout} >
-                          <i className="bi bi-box-arrow-right" />
-                          <span>Sign Out</span>
-                        </button>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </nav>
-            </header>
-
-            <aside id="sidebar" className="sidebar">
-              <ul className="sidebar-nav" id="sidebar-nav">
-                <li className="nav-item">
-                  <Link className="nav-link " to="/admin">
-                    <i className="bi bi-grid" />
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link " to="/admin/users-list">
-                    <i className="bi bi-people" />
-                    <span>Users List</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link className="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" to="#">
-                    <i className="bi bi-newspaper" /><span>News</span><i className="bi bi-chevron-down ms-auto" />
-                  </Link>
-                  <ul id="components-nav" className="nav-content collapse " data-bs-parent="#sidebar-nav">
-                  {Profile && Profile.role === 'admin' && (
-                    <li>
-                      <Link to="/admin/manage-category">
-                        <i className="bi bi-circle" /><span>Category</span>
-                      </Link>
-                    </li>
-                  )}
-                    <li>
-                      <Link to="/admin/add-news">
-                        <i className="bi bi-circle" /><span>Add news</span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link to="/admin/show-news">
-                        <i className="bi bi-circle" /><span>Show news</span>
-                      </Link>
-                    </li>
-
-                  </ul>
-                </li>
-
-              </ul>
-            </aside>
-            <main id="main" className="main">
-              <Outlet />
-
-            </main>
-
-            <footer id="footer" className="footer">
-              <div className="copyright">
-                © Copyright <strong><span>Admin</span></strong>. All Rights Reserved
-              </div>
-              <div className="credits">
-                Designed by <Link to="/admin">MERN_NEWS</Link>
-              </div>
-            </footer>
-            <Link to="/admin" className="back-to-top d-flex align-items-center justify-content-center"><i className="bi bi-arrow-up-short" /></Link>
-          </div>
-
+  return (
+    <div className="admin">
+      <a className="skip-link" href="#admin-main">Skip to content</a>
+      <DemoBanner />
+      <header className="admin-top">
+        <button type="button" className="icon-btn admin-burger" aria-expanded={open} aria-controls="admin-side" aria-label={open ? 'Close menu' : 'Open menu'} onClick={() => setDrawer({ open: !open, at: location.pathname })}>
+          <i className={`bi ${open ? 'bi-x-lg' : 'bi-list'}`} aria-hidden="true" />
+        </button>
+        <Link to="/admin" className="brand"><Logo /> <span className="brand-name">{SITE_NAME} <small>Admin</small></span></Link>
+        <div className="admin-top-actions">
+          <Link to="/" className="btn btn-secondary btn-sm"><i className="bi bi-box-arrow-up-right" aria-hidden="true" /> <span>View site</span></Link>
+          <ThemeToggle />
+          <button type="button" className="btn btn-secondary btn-sm" onClick={signOut}><i className="bi bi-box-arrow-right" aria-hidden="true" /> <span>Sign out</span></button>
         </div>
-      )
-    } else {
-      return <Navigate to="/login" replace />;
-    }
-  }
-
-
-
+      </header>
+      <div className="admin-body">
+        <nav id="admin-side" className={`admin-side ${open ? 'is-open' : ''}`} aria-label="Admin">
+          <p className="admin-who"><strong>{user.name}</strong><span>{user.role}</span></p>
+          <ul>
+            {links.map(([to, icon, label, , end]) => (
+              <li key={to}><NavLink to={to} end={end}><i className={`bi ${icon}`} aria-hidden="true" /> {label}</NavLink></li>
+            ))}
+          </ul>
+        </nav>
+        {open && <button type="button" className="admin-scrim" aria-label="Close menu" onClick={() => setDrawer({ open: false, at: location.pathname })} />}
+        <main id="admin-main" className="admin-main" tabIndex={-1}>
+          <Outlet />
+        </main>
+      </div>
+    </div>
+  );
 }
-

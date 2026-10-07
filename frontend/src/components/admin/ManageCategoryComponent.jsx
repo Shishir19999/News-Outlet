@@ -1,171 +1,106 @@
-import { useEffect, useState } from 'react';
-import * as yup from 'yup';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import API from '../../config/API';
-import Swal from 'sweetalert2';
+import { useState } from 'react';
+import API, { authHeaders, errorMessage } from '../../config/API';
+import useAsync from '../../hooks/useAsync';
+import { useAuth } from '../../context/AuthContext';
+import { useCategories } from '../../context/CategoriesContext';
+import { useConfirm } from '../../context/ConfirmContext';
+import { useToast } from '../../context/ToastContext';
+import { EmptyState, ErrorState, TableSkeleton } from '../ui/States';
 
-let categorySchema = yup.object().shape({
-  name: yup.string().required(),
-  description: yup.string().required(),
-});
+const BLANK = { name: '', description: '' };
 
 export default function ManageCategoryComponent() {
-  const [categories, setCategories] = useState([]);
-  const {
-    setError,
-    register,
-    reset,
-    handleSubmit,
-    formState: { errors },
-  } = useForm({
-    resolver: yupResolver(categorySchema),
-  });
+  const { isAdmin } = useAuth();
+  const shared = useCategories();
+  const confirm = useConfirm();
+  const toast = useToast();
+  const list = useAsync(() => API.get('/category').then((r) => r.data), []);
+  const [form, setForm] = useState(BLANK);
+  const [editing, setEditing] = useState(null);
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
 
-  const addCategory = (data) => {
-    API.post('/category', data, {
-      headers: {
-        authorization: localStorage.getItem('token'),
-      },
-    })
-      .then((res) => {
-        if (res.data.success) {
-          Swal.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          getCategories();
-          reset();
-        }
-      })
-      .catch((e) => {
-        if (e.response.data.message) {
-          setError('name', {
-            type: 'manual',
-            message: e.response.data.message,
-          });
-        }
-        console.log(e);
-      });
+  if (!isAdmin) return <ErrorState title="Admins only" message="Only administrators can manage categories." />;
+
+  const refresh = () => { list.reload(); shared.reload(); };
+  const reset = () => { setForm(BLANK); setEditing(null); setError(''); };
+
+  const submit = async (e) => {
+    e.preventDefault();
+    if (!form.name.trim()) { setError('A category name is required'); return; }
+    setError('');
+    setBusy(true);
+    try {
+      const body = { name: form.name.trim(), description: form.description.trim() };
+      if (editing) await API.put(`/category/${editing}`, body, { headers: authHeaders() });
+      else await API.post('/category', body, { headers: authHeaders() });
+      toast.success(editing ? 'Category updated' : 'Category created');
+      reset();
+      refresh();
+    } catch (err) {
+      setError(errorMessage(err));
+    } finally {
+      setBusy(false);
+    }
   };
 
-  const getCategories = () => {
-    API.get('/category')
-      .then((res) => {
-        setCategories(res.data);
-      })
-      .catch((e) => {
-        console.log(e);
-      });
-  };
-
-  useEffect(() => {
-    getCategories();
-  }, []);
-
-  const deleteCategory = (id) => {
-    API.delete(`/category/${id}`, {
-      headers: {
-        authorization: localStorage.getItem('token'),
-      },
-    })
-      .then((res) => {
-        if (res.data.success) {
-          Swal.fire({
-            icon: 'success',
-            title: res.data.message,
-          });
-          getCategories();
-        }
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+  const remove = async (c) => {
+    if (!await confirm({ title: `Delete "${c.name}"?`, message: 'Categories that still contain articles cannot be deleted.', confirmLabel: 'Delete', danger: true })) return;
+    try {
+      await API.delete(`/category/${c._id}`, { headers: authHeaders() });
+      toast.success('Category deleted');
+      refresh();
+    } catch (err) {
+      toast.error(errorMessage(err, 'The category could not be deleted.'));
+    }
   };
 
   return (
-    <div className="card">
-      <div className="card-body">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <h1>Manage Category</h1>
-            </div>
+    <>
+      <div className="page-head"><h1>Categories</h1></div>
+      <div className="admin-grid two">
+        <form className="panel" onSubmit={submit} noValidate>
+          <h2>{editing ? 'Edit category' : 'Add a category'}</h2>
+          <div className="field">
+            <label htmlFor="cat-name">Name</label>
+            <input id="cat-name" className={`input ${error ? 'is-invalid' : ''}`} value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} aria-invalid={!!error} aria-describedby={error ? 'cat-err' : undefined} />
+            {error && <p id="cat-err" className="field-error" role="alert">{error}</p>}
           </div>
-          <div className="row">
-            <div className="col-md-4">
-              <form action="" onSubmit={handleSubmit(addCategory)}>
-                <div className="form-group mb-2">
-                  <label htmlFor="name">
-                    Name:
-                    {errors.name && (
-                      <span className="text-danger">{errors.name.message}</span>
-                    )}
-                  </label>
-                  <input
-                    type="text"
-                    name="name"
-                    {...register('name')}
-                    className="form-control"
-                    id="name"
-                  />
-                </div>
-                <div className="form-group mb-2">
-                  <label htmlFor="description">
-                    Description:
-                    {errors.description && (
-                      <span className="text-danger">
-                        {errors.description.message}
-                      </span>
-                    )}
-                  </label>
-                  <textarea
-                    name="description"
-                    className="form-control"
-                    {...register('description')}
-                  ></textarea>
-                </div>
-                <div className="form-group">
-                  <button className="btn btn-primary">Add Category</button>
-                </div>
-              </form>
-            </div>
-            <div className="col-md-8">
-              <table className="table">
-                <thead>
-                  <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
+          <div className="field">
+            <label htmlFor="cat-desc">Description</label>
+            <textarea id="cat-desc" className="input" rows="3" value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })} />
+          </div>
+          <div className="editor-actions">
+            <button type="submit" className="btn btn-primary" disabled={busy}>{editing ? 'Save changes' : 'Add category'}</button>
+            {editing && <button type="button" className="btn btn-secondary" onClick={reset}>Cancel</button>}
+          </div>
+        </form>
+        <div className="panel">
+          <h2>All categories</h2>
+          {list.error ? <ErrorState onRetry={list.reload} /> : !list.data ? <TableSkeleton rows={4} /> : list.data.length === 0 ? (
+            <EmptyState icon="bi-tags" title="No categories yet">Add the first one with the form.</EmptyState>
+          ) : (
+            <div className="table-wrap">
+              <table className="data-table">
+                <caption className="visually-hidden">Categories</caption>
+                <thead><tr><th scope="col">Name</th><th scope="col" className="num">Articles</th><th scope="col"><span className="visually-hidden">Actions</span></th></tr></thead>
                 <tbody>
-                  {categories &&
-                    categories.map((category, index) => {
-                      return (
-                        <tr key={index}>
-                          <td>{++index}</td>
-                          <td>{category.name}</td>
-                          <td>{category.description}</td>
-                          <td>
-                            <button className="btn btn-info">Edit</button>
-                            <button
-                              onClick={() => deleteCategory(category._id)}
-                              className="btn btn-danger"
-                            >
-                              Delete
-                            </button>
-                          </td>
-                        </tr>
-                      );
-                    })}
+                  {list.data.map((c) => (
+                    <tr key={c._id}>
+                      <td data-label="Name"><span className="cell-title">{c.name}</span><span className="meta">{c.description}</span></td>
+                      <td data-label="Articles" className="num">{c.newsCount}</td>
+                      <td className="row-actions">
+                        <button type="button" className="btn btn-secondary btn-sm" onClick={() => { setEditing(c._id); setForm({ name: c.name, description: c.description || '' }); setError(''); }} aria-label={`Edit ${c.name}`}><i className="bi bi-pencil" aria-hidden="true" /> Edit</button>
+                        <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(c)} aria-label={`Delete ${c.name}`}><i className="bi bi-trash" aria-hidden="true" /></button>
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
-          </div>
+          )}
         </div>
       </div>
-    </div>
+    </>
   );
 }

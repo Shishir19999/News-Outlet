@@ -1,11 +1,5 @@
-import RouterComponent from "./router/RouterComponent";
+import RouterComponent from './router/RouterComponent';
 
-function App(){
-  return(
-    <>
-    <RouterComponent />
-    </>
-  )
+export default function App() {
+  return <RouterComponent />;
 }
-
-export default App;
