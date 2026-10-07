@@ -10,9 +10,11 @@ const upload = uI.upload('news');
 
 // Specific routes first, then parameterised routes.
 newsRouter.get('/', nInstance.index);
-newsRouter.get('/news-details/:slug', nInstance.getNews);
+newsRouter.get('/manage/list', Auth.check, nInstance.manage);
+newsRouter.get('/news-details/:slug', Auth.optional, nInstance.getNews);
 newsRouter.post('/', Auth.check, upload.single('image'), nInstance.store);
-newsRouter.get('/:id', nInstance.show);
+newsRouter.post('/:id/view', nInstance.view);
+newsRouter.get('/:id', Auth.optional, nInstance.show);
 newsRouter.put('/:id', Auth.check, Auth.admin, upload.single('image'), nInstance.update);
 newsRouter.delete('/:id', Auth.check, Auth.admin, nInstance.destroy);
 

@@ -13,7 +13,7 @@ class UserTableSeeder{
         let userData = [
             {
                 name: "admin",
-                email: "admin@gmail.com",
+                email: "admin@example.com",
                 password: adminPassword,
                 gender:"male",
                 role: "admin",
@@ -21,7 +21,7 @@ class UserTableSeeder{
             },
             {
                 name: "user",
-                email: "user@gmail.com",
+                email: "user@example.com",
                 password: userPassword,
                 gender:"male",
                 role: "user",

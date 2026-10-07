@@ -1,13 +1,17 @@
 import mongoose from 'mongoose';
 import Category from '../models/Category.js';
-import News from '../models/News.js';
+import News, { liveFilter } from '../models/News.js';
 
 class CategoryController {
 
     async index(req, res) {
         try {
-            const categories = await Category.find();
-            res.status(200).json(categories);
+            const [categories, counts] = await Promise.all([
+                Category.find(),
+                News.aggregate([{ $match: liveFilter() }, { $group: { _id: '$categoryId', n: { $sum: 1 } } }]),
+            ]);
+            const byId = new Map(counts.map((c) => [String(c._id), c.n]));
+            res.status(200).json(categories.map((c) => ({ ...c.toJSON(), newsCount: byId.get(String(c._id)) || 0 })));
         } catch (error) {
             res.status(500).json({ message: error.message });
         }

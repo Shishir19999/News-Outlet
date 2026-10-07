@@ -1,103 +1,125 @@
-import { useEffect, useState, useCallback } from 'react';
-import Swal from 'sweetalert2'
-import API from '../../config/API'
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import API, { authHeaders, errorMessage } from '../../config/API';
+import useAsync from '../../hooks/useAsync';
+import { useAuth } from '../../context/AuthContext';
+import { useCategories } from '../../context/CategoriesContext';
+import { useConfirm } from '../../context/ConfirmContext';
+import { useToast } from '../../context/ToastContext';
+import PaginationComponent from '../layouts/PaginationComponent';
+import { EmptyState, ErrorState, TableSkeleton } from '../ui/States';
+import { formatDateTime, formatNumber, statusOf } from '../../lib/text';
 
-const authHeaders = () => ({ authorization: localStorage.getItem('token') })
+const STATUS_LABEL = { published: 'Published', draft: 'Draft', scheduled: 'Scheduled' };
 
 export default function ShowNewsComponent() {
-  const [news, setNews] = useState([])
-  const [page, setPage] = useState(1)
-  const [pages, setPages] = useState(1)
-  const [search, setSearch] = useState('')
-  const [query, setQuery] = useState('')
-  const [editing, setEditing] = useState(null)
-  const [profile, setProfile] = useState(null)
+  const { isAdmin } = useAuth();
+  const { byId } = useCategories();
+  const confirm = useConfirm();
+  const toast = useToast();
+  const [page, setPage] = useState(1);
+  const [status, setStatus] = useState('');
+  const [draft, setDraft] = useState('');
+  const [search, setSearch] = useState('');
 
-  const load = useCallback(() => {
-    API.get('/news', { params: { page, limit: 10, search: query } }).then((res) => {
-      setNews(res.data.news)
-      setPages(res.data.pages)
-    }).catch((e) => console.log(e))
-  }, [page, query])
-
-  useEffect(() => { load() }, [load])
   useEffect(() => {
-    API.get('/user/profile/user', { headers: authHeaders() }).then((res) => setProfile(res.data)).catch(() => {})
-  }, [])
+    const t = setTimeout(() => { setSearch(draft.trim()); setPage(1); }, 300);
+    return () => clearTimeout(t);
+  }, [draft]);
 
-  const isAdmin = profile && profile.role === 'admin'
+  const list = useAsync(() => API.get('/news/manage/list', {
+    params: { page, limit: 10, search: search || undefined, status: status || undefined }, headers: authHeaders(),
+  }).then((r) => r.data), [page, search, status]);
 
   const remove = async (item) => {
-    const ok = await Swal.fire({ icon: 'warning', title: `Delete "${item.title}"?`, showCancelButton: true })
-    if (!ok.isConfirmed) return
-    API.delete(`/news/${item._id}`, { headers: authHeaders() })
-      .then(() => load())
-      .catch((e) => Swal.fire({ icon: 'error', title: e.response?.data?.message || 'Delete failed' }))
-  }
+    const ok = await confirm({ title: 'Delete this article?', message: `"${item.title}" and its comments will be removed permanently.`, confirmLabel: 'Delete', danger: true });
+    if (!ok) return;
+    try {
+      await API.delete(`/news/${item._id}`, { headers: authHeaders() });
+      toast.success('Article deleted');
+      list.reload();
+    } catch (err) {
+      toast.error(errorMessage(err, 'The article could not be deleted.'));
+    }
+  };
 
-  const save = (e) => {
-    e.preventDefault()
-    const data = new FormData()
-    data.append('title', editing.title)
-    data.append('summary', editing.summary)
-    data.append('description', editing.description || '')
-    API.put(`/news/${editing._id}`, data, { headers: authHeaders() })
-      .then(() => { setEditing(null); load() })
-      .catch((err) => Swal.fire({ icon: 'error', title: err.response?.data?.message || 'Update failed' }))
-  }
+  const publish = async (item) => {
+    const form = new FormData();
+    form.append('status', 'published');
+    try {
+      await API.put(`/news/${item._id}`, form, { headers: authHeaders() });
+      toast.success('Article published');
+      list.reload();
+    } catch (err) {
+      toast.error(errorMessage(err));
+    }
+  };
 
+  const data = list.data;
   return (
-    <div className='card'>
-      <div className='card-header'>
-        <h4>Show News</h4>
+    <>
+      <div className="page-head">
+        <h1>Articles</h1>
+        <Link to="/admin/add-news" className="btn btn-primary"><i className="bi bi-plus-lg" aria-hidden="true" /> New article</Link>
       </div>
-      <div className='card-body'>
-        <form className='d-flex mb-3' onSubmit={(e) => { e.preventDefault(); setPage(1); setQuery(search) }}>
-          <input className='form-control me-2' placeholder='Search title or summary' value={search} onChange={(e) => setSearch(e.target.value)} />
-          <button className='btn btn-primary'>Search</button>
-        </form>
-
-        {editing && (
-          <form className='border rounded p-3 mb-3' onSubmit={save}>
-            <h5>Edit news</h5>
-            <input className='form-control mb-2' value={editing.title} onChange={(e) => setEditing({ ...editing, title: e.target.value })} />
-            <textarea className='form-control mb-2' value={editing.summary} onChange={(e) => setEditing({ ...editing, summary: e.target.value })} />
-            <textarea className='form-control mb-2' value={editing.description || ''} onChange={(e) => setEditing({ ...editing, description: e.target.value })} />
-            <button className='btn btn-success me-2'>Save</button>
-            <button type='button' className='btn btn-secondary' onClick={() => setEditing(null)}>Cancel</button>
-          </form>
-        )}
-
-        <table className='table'>
-          <thead>
-            <tr><th>Image</th><th>Title</th><th>Slug</th><th>Actions</th></tr>
-          </thead>
-          <tbody>
-            {news.length === 0 && <tr><td colSpan={4}>No news found</td></tr>}
-            {news.map((item) => (
-              <tr key={item._id}>
-                <td><img src={item.image} alt='' width={60} /></td>
-                <td>{item.title}</td>
-                <td>{item.slug}</td>
-                <td>
-                  {isAdmin ? (
-                    <>
-                      <button className='btn btn-sm btn-primary me-2' onClick={() => setEditing(item)}>Edit</button>
-                      <button className='btn btn-sm btn-danger' onClick={() => remove(item)}>Delete</button>
-                    </>
-                  ) : <span className='text-muted'>Admin only</span>}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-
-        <div className='d-flex align-items-center gap-2'>
-          <button className='btn btn-outline-secondary btn-sm' disabled={page <= 1} onClick={() => setPage(page - 1)}>Prev</button>
-          <span>Page {page} of {pages}</span>
-          <button className='btn btn-outline-secondary btn-sm' disabled={page >= pages} onClick={() => setPage(page + 1)}>Next</button>
+      <div className="panel">
+        <div className="toolbar">
+          <div className="field">
+            <label htmlFor="a-search" className="visually-hidden">Search articles</label>
+            <input id="a-search" type="search" className="input" placeholder="Search by title or summary" value={draft} onChange={(e) => setDraft(e.target.value)} />
+          </div>
+          <div className="field">
+            <label htmlFor="a-status" className="visually-hidden">Filter by status</label>
+            <select id="a-status" className="input" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
+              <option value="">All statuses</option>
+              <option value="published">Published</option>
+              <option value="draft">Drafts</option>
+              <option value="scheduled">Scheduled</option>
+            </select>
+          </div>
         </div>
+        {list.error ? <ErrorState onRetry={list.reload} /> : !data ? <TableSkeleton rows={6} /> : data.news.length === 0 ? (
+          <EmptyState icon="bi-newspaper" title="No articles found" action={<Link to="/admin/add-news" className="btn btn-primary">Write the first one</Link>}>
+            Try another search or status filter.
+          </EmptyState>
+        ) : (
+          <div className="table-wrap">
+            <table className="data-table">
+              <caption className="visually-hidden">Articles</caption>
+              <thead><tr><th scope="col">Article</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col" className="num">Views</th><th scope="col"><span className="visually-hidden">Actions</span></th></tr></thead>
+              <tbody>
+                {data.news.map((item) => {
+                  const st = statusOf(item);
+                  return (
+                    <tr key={item._id}>
+                      <td data-label="Article">
+                        <Link to={`/news-details/${item.slug}`} className="cell-title">{item.title}</Link>
+                        <span className="meta">{item.slug}{item.featured ? ' · featured' : ''}</span>
+                      </td>
+                      <td data-label="Category">{(byId(item.categoryId) || {}).name || '-'}</td>
+                      <td data-label="Status">
+                        <span className={`badge badge-${st}`}>{STATUS_LABEL[st]}</span>
+                        {st === 'scheduled' && <span className="meta">{formatDateTime(item.publishedAt)}</span>}
+                      </td>
+                      <td data-label="Views" className="num">{formatNumber(item.views)}</td>
+                      <td className="row-actions">
+                        {isAdmin ? (
+                          <>
+                            {st !== 'published' && <button type="button" className="btn btn-secondary btn-sm" onClick={() => publish(item)}>Publish</button>}
+                            <Link to={`/admin/edit-news/${item._id}`} className="btn btn-secondary btn-sm" aria-label={`Edit ${item.title}`}><i className="bi bi-pencil" aria-hidden="true" /> Edit</Link>
+                            <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(item)} aria-label={`Delete ${item.title}`}><i className="bi bi-trash" aria-hidden="true" /></button>
+                          </>
+                        ) : <span className="muted">Admin only</span>}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        )}
+        {data && <PaginationComponent page={page} pages={data.pages} onChange={setPage} />}
       </div>
-    </div>
-  )
+    </>
+  );
 }

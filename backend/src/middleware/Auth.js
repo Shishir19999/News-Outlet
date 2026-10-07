@@ -16,6 +16,17 @@ class Auth{
         }
     }
 
+    // Like check, but anonymous or invalid callers simply continue without req.user.
+    static async optional(req,res,next){
+        if(req.headers.authorization){
+            const response = await TokenMiddleware.checkActive(req.headers.authorization);
+            if(response && response.pay_load){
+                req.user = response.pay_load;
+            }
+        }
+        next();
+    }
+
     // Must run after Auth.check.
     static admin(req,res,next){
         if(req.user && req.user.role === 'admin'){

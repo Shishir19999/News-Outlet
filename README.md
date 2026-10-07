@@ -1,9 +1,42 @@
-# News-Outlet
+# News Outlet
 
-MERN news site: React (Vite) frontend and an Express + MongoDB backend.
+A MERN news site with a public reader experience and an admin panel: React (Vite) frontend, Express + MongoDB backend.
+
+**Live demo:** https://shishir19999.github.io/News-Outlet/ (browser-only, no server)
+
+## Features
+- Homepage with hero and featured stories, trending and latest sections, section chips
+- Category pages with their own headers, breadcrumbs everywhere
+- Article page with reading time, share buttons (copy link, native share, social, e-mail), related articles and comments
+- Comments are moderated: they stay hidden until an admin approves them
+- Bookmarks ("read later"): kept on the server for signed-in readers, in the browser for guests
+- Search with highlighted matches and filters (section, date range, sort order), shareable URLs
+- Newsletter sign-up (stored only, no mail is sent)
+- Light and dark theme (follows the system, remembered), responsive from 320px, keyboard and screen reader friendly, skeleton loaders, empty and error states with retry, toasts and confirm dialogs, per-page title, description and Open Graph tags, 404 page
+- Admin panel: dashboard with charts (views per day and per category), article CRUD with a Markdown editor, live preview and image upload, draft / publish / schedule, category and user management, comment moderation queue, subscriber list
+
+### Parallax and scroll effects
+The homepage hero, the newsletter band and the category headers use a gentle parallax and scroll-reveal. It only changes `transform` and `opacity`, is driven by `IntersectionObserver` and `requestAnimationFrame` (no libraries), and is switched off for `prefers-reduced-motion`, narrow screens and low-power or data-saver devices. The admin tables and editor never use it.
+
+## Two ways to run the frontend
+| | Full stack | Browser-only demo |
+| --- | --- | --- |
+| Needs | Node, MongoDB, the backend | Node only (static files) |
+| Data | MongoDB, uploads on disk | `localStorage`, images stored as downsized data URLs |
+| Start | `npm run dev` | `npm run dev:demo` |
+| Build | `npm run build` | `npm run build:pages` (base `/News-Outlet/`, hash routes, output in `frontend/dist`) |
+
+The demo swaps the server layer for an in-browser backend with the same interface (32 sample articles, comments, users, simulated latency). A "Demo mode" banner explains this and offers **Reset demo data**. Demo logins (they only exist in your browser):
+
+| Role | Email | Password |
+| --- | --- | --- |
+| Admin | `admin@example.com` | `admin123` |
+| Reader | `user@example.com` | `user123` |
+
+`npm run build:pages` produces a static site that can be published from any static host or GitHub Pages; nothing in it talks to a server, sends e-mail or stores anything remotely.
 
 ## Prerequisites
-- Node.js 18+
+- Node.js 24+
 - A running MongoDB instance
 
 ## Backend (`backend/`)
@@ -48,14 +81,14 @@ Each user has a `tokenVersion` (default 0) that is embedded in the JWT. `POST /l
 `cd backend && npm test` runs `node:test` + `supertest` against a throwaway database `news_test` on `mongodb://127.0.0.1:27017` (override with `TEST_MONGODB_URL`, which must contain `news_test`); it is dropped afterwards. The contact mailer is replaced by a stub, so no email is sent. Tests cover auth, role gates, news CRUD + image cleanup, slug rules, pagination, contact validation and token revocation.
 
 ### Seeding
-`npm run seed` (in `backend/`) is idempotent and can be run any number of times. It creates any missing demo accounts, 5 categories (Education, Sports, Weathers, Books, Technology) and 15 news items (3 per category, no images); existing records are never duplicated or overwritten. On server startup the user seeder only runs when the `users` collection is empty, categories are created if missing, and demo news is created only when there is no news at all.
+`npm run seed` (in `backend/`) is idempotent and can be run any number of times. It creates any missing demo accounts, 5 categories (Education, Sports, Weathers, Books, Technology) and sample news items (no images); existing records are never duplicated or overwritten. On server startup the user seeder only runs when the `users` collection is empty, categories are created if missing, and demo news is created only when there is no news at all.
 
 Demo logins (passwords come from `SEED_ADMIN_PASSWORD` / `SEED_USER_PASSWORD`; if unset the insecure dev defaults below are used, so always set them outside local development):
 
 | Role | Email | Default password |
 | --- | --- | --- |
-| admin | `admin@gmail.com` | `admin123` |
-| user | `user@gmail.com` | `user123` |
+| admin | `admin@example.com` | `admin123` |
+| user | `user@example.com` | `user123` |
 
 Note: `express.static` is configured with `redirect: false`, otherwise the `public/news` upload directory redirects `GET /news` to `/news/`.
 
@@ -69,7 +102,21 @@ Send the JWT in the `authorization` header (no `Bearer` prefix).
 ## Frontend (`frontend/`)
 1. `cd frontend && npm install`
 2. Copy `.env.example` to `.env` and set `VITE_API_URL` (default `http://localhost:8080`).
-3. Scripts: `npm run dev` (dev server), `npm run build` (production build), `npm run preview`.
+3. Scripts: `npm run dev` (dev server), `npm run build` (production build), `npm run preview`, `npm run dev:demo` and `npm run build:pages` (browser-only demo), `npm test` (unit tests for the demo backend and helpers), `npm run lint`.
+
+## More API endpoints
+| Method | Path | Access | Notes |
+| --- | --- | --- | --- |
+| GET | `/news/manage/list?status=&search=` | logged-in | Admins see everything, users only their own articles (drafts and scheduled included) |
+| POST | `/news/:id/view` | public | Counts a view (feeds the dashboard) |
+| GET | `/comments?newsId=` | public | Approved comments only |
+| POST | `/comments` | public | `newsId`, `body`, `name` (signed-in users use their own name); stays `pending` until approved |
+| GET / PUT / DELETE | `/comments/manage/list`, `/comments/:id` | admin | Moderation queue; `PUT { status: pending|approved|rejected }` |
+| GET / PUT / DELETE | `/bookmarks`, `/bookmarks/:newsId` | logged-in | Per-user reading list |
+| POST / GET / DELETE | `/newsletter`, `/newsletter/:id` | public / admin | Stores addresses only |
+| GET | `/stats?days=14` | admin | Totals, views per day and per category, top articles |
+
+News also accepts `status` (`draft`, `published`, `scheduled`), `publishedAt` and `featured`; the public list only returns live articles and supports `featured`, `ids`, `period` (days) and `sort` (`latest`, `popular`, `oldest`).
 
 ## News API
 | Method | Path | Access | Notes |

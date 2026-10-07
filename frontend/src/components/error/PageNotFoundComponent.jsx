@@ -1,18 +1,14 @@
-import HeaderComponent from '../layouts/HeaderComponent'
-import FooterComponent from '../layouts/FooterComponent'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import useSeo from '../../hooks/useSeo';
+import { EmptyState } from '../ui/States';
 
 export default function PageNotFoundComponent() {
+  useSeo({ title: 'Page not found' });
   return (
-    <div className='container'>
-      <HeaderComponent />
-      <div className="row mt-4">
-        <div className="col-md-12">
-          <h3 className='mb-3'>Sorry page not found</h3>
-          <Link to="/" className='btn btn-primary'>Goto home page</Link>
-        </div>
-      </div>
-      <FooterComponent />
+    <div className="container section">
+      <EmptyState icon="bi-compass" title="404: this page could not be found" action={<Link to="/" className="btn btn-primary">Back to the homepage</Link>}>
+        The link may be broken, or the page may have been moved or removed.
+      </EmptyState>
     </div>
-  )
+  );
 }

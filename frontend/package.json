@@ -6,20 +6,18 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:pages": "vite build --mode pages",
+    "dev:demo": "vite --mode demo",
+    "test": "node --test",
     "lint": "eslint . --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.9.1",
     "axios": "^1.20.0",
-    "bootstrap": "^5.3.8",
     "bootstrap-icons": "^1.13.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
-    "react-hook-form": "^7.89.0",
-    "react-router-dom": "^7.18.4",
-    "sweetalert2": "^11.26.25",
-    "yup": "^1.7.1"
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",

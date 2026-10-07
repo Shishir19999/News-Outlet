@@ -1,101 +1,84 @@
-import * as yup from 'yup';
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import Swal from 'sweetalert2'
-import HeaderComponent from '../layouts/HeaderComponent'
-import FooterComponent from '../layouts/FooterComponent'
-import API from '../../config/API'
+import { useState } from 'react';
+import API, { errorMessage } from '../../config/API';
+import { DEMO } from '../../config/env';
+import useSeo from '../../hooks/useSeo';
+import { useToast } from '../../context/ToastContext';
+import Breadcrumbs from '../ui/Breadcrumbs';
 
-let contactSchema = yup.object().shape({
-  name: yup.string().required(),
-  email: yup.string().email().required(),
-  subject: yup.string().required(),
-  message: yup.string().required()
+const EMAIL_RE = /^[^\s@,;<>]+@[^\s@,;<>]+\.[^\s@,;<>]+$/;
+const EMPTY = { name: '', email: '', subject: '', message: '' };
 
-});
+function validate(v) {
+  const e = {};
+  if (!v.name.trim()) e.name = 'Please enter your name';
+  if (!v.email.trim()) e.email = 'Please enter your email address';
+  else if (!EMAIL_RE.test(v.email.trim())) e.email = 'Enter a valid email address, for example you@example.com';
+  if (!v.subject.trim()) e.subject = 'Please add a subject';
+  if (v.message.trim().length < 10) e.message = 'Please write at least 10 characters';
+  return e;
+}
 
 export default function ContactComponent() {
+  useSeo({ title: 'Contact', description: 'Send a tip, a correction or a question to the newsroom.' });
+  const toast = useToast();
+  const [values, setValues] = useState(EMPTY);
+  const [errors, setErrors] = useState({});
+  const [busy, setBusy] = useState(false);
+  const [sent, setSent] = useState(false);
 
-  const { register, reset, handleSubmit, formState: { errors } } =
-    useForm({
-      resolver: yupResolver(contactSchema)
-    });
+  const set = (k) => (e) => setValues((v) => ({ ...v, [k]: e.target.value }));
+  const field = (k, label, props = {}) => (
+    <div className="field">
+      <label htmlFor={`c-${k}`}>{label}</label>
+      {k === 'message'
+        ? <textarea id={`c-${k}`} className={`input ${errors[k] ? 'is-invalid' : ''}`} rows="6" value={values[k]} onChange={set(k)} aria-invalid={!!errors[k]} aria-describedby={errors[k] ? `c-${k}-err` : undefined} />
+        : <input id={`c-${k}`} className={`input ${errors[k] ? 'is-invalid' : ''}`} value={values[k]} onChange={set(k)} aria-invalid={!!errors[k]} aria-describedby={errors[k] ? `c-${k}-err` : undefined} {...props} />}
+      {errors[k] && <p id={`c-${k}-err`} className="field-error">{errors[k]}</p>}
+    </div>
+  );
 
-    const sendMail = (data) => {
-      API.post('/contact', data).then((res) => {
-        Swal.fire({
-          icon: 'success',
-          title: 'Success',
-          text: res.data.message
-        })
-        reset()
-      }).catch((e) => {
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: e.response.data.message
-        })
-      })
-
+  const submit = async (ev) => {
+    ev.preventDefault();
+    const found = validate(values);
+    setErrors(found);
+    if (Object.keys(found).length) return;
+    setBusy(true);
+    try {
+      await API.post('/contact', values);
+      setSent(true);
+      setValues(EMPTY);
+      toast.success('Thanks, your message was received');
+    } catch (err) {
+      toast.error(errorMessage(err, 'Your message could not be sent. Please try again.'));
+    } finally {
+      setBusy(false);
     }
-
+  };
 
   return (
-    <div className='container'>
-      <HeaderComponent />
-      <div className="row mt-3 mb-3">
-        <div className="col-md-12">
-          <h1>Contact</h1>
+    <div className="container section page-narrow">
+      <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Contact' }]} />
+      <h1 className="page-title">Contact the newsroom</h1>
+      <p className="lead">Tips, corrections and questions are all welcome.</p>
+      {DEMO && <p className="notice"><i className="bi bi-info-circle" aria-hidden="true" /> In this demo the message is kept in your browser only. Nothing is e-mailed.</p>}
+      {sent ? (
+        <div className="state" role="status">
+          <i className="bi bi-check-circle state-icon" aria-hidden="true" />
+          <h2 className="state-title">Message received</h2>
+          <p className="state-text">We read every message and reply when we can.</p>
+          <button type="button" className="btn btn-secondary" onClick={() => setSent(false)}>Send another</button>
         </div>
-      </div>
-      <div className="row">
-        <div className="col-md-8">
-          <form action="" onSubmit={handleSubmit(sendMail)}>
-            <div className="form-group mb-2">
-              <label htmlFor="name">Name:
-                {errors.name && <span className='text-danger' >{errors.name.message}</span>}
-              </label>
-              <input type="text"
-                {...register("name")}
-                className="form-control" id="name" />
-            </div>
-            <div className="form-group mb-2">
-              <label htmlFor="email">Email:
-                {errors.email && <span className='text-danger' >{errors.email.message}</span>}
-              </label>
-              <input type="email" name="email"
-                {...register("email")}
-                className="form-control" id="email" />
-            </div>
-            <div className="form-group mb-2">
-              <label htmlFor="subject">Subject:
-                {errors.subject && <span className='text-danger' >{errors.subject.message}</span>}
-              </label>
-              <input type="text" name='subject'
-                {...register("subject")}
-                className="form-control" id="subject" />
-            </div>
-            <div className="form-group mb-2">
-              <label htmlFor="message">Message:
-                {errors.message && <span className='text-danger' >{errors.message.message}</span>}
-              </label>
-              <textarea name='message'
-                {...register('message')}
-                className="form-control" id="message" ></textarea>
-            </div>
-            <div className="form-group">
-              <button className="btn btn-primary">Submit</button>
-            </div>
-          </form>
-        </div>
-        <div className="col-md-4">
-
-          
-        </div>
-      </div>
-
-      <FooterComponent />
-
+      ) : (
+        <form className="card form-card" onSubmit={submit} noValidate>
+          <div className="form-row">
+            {field('name', 'Your name', { autoComplete: 'name' })}
+            {field('email', 'Email', { type: 'email', autoComplete: 'email', placeholder: 'you@example.com' })}
+          </div>
+          {field('subject', 'Subject')}
+          {field('message', 'Message')}
+          <button type="submit" className="btn btn-primary" disabled={busy}>{busy ? 'Sending…' : 'Send message'}</button>
+        </form>
+      )}
     </div>
-  )
+  );
 }
