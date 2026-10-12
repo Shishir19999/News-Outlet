@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
   return {
     base: mode === 'pages' ? '/News-Outlet/' : '/',
     plugins: [react()],
+    build: { chunkSizeWarningLimit: 900 },
     define: { 'import.meta.env.VITE_DEMO': JSON.stringify(demo ? 'true' : 'false') },
   };
 });

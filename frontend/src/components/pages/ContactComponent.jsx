@@ -60,7 +60,7 @@ export default function ContactComponent() {
       <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: 'Contact' }]} />
       <h1 className="page-title">Contact the newsroom</h1>
       <p className="lead">Tips, corrections and questions are all welcome.</p>
-      {DEMO && <p className="notice"><i className="bi bi-info-circle" aria-hidden="true" /> In this demo the message is kept in your browser only. Nothing is e-mailed.</p>}
+      {DEMO && <p className="notice"><i className="bi bi-info-circle" aria-hidden="true" /> In the live preview the message goes to the Preview inbox in your browser. Nothing is e-mailed.</p>}
       {sent ? (
         <div className="state" role="status">
           <i className="bi bi-check-circle state-icon" aria-hidden="true" />

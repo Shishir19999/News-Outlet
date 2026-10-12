@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { renderMarkdown } from '../src/lib/markdown.js';
 import {
-  slugify, readingTime, stripMarkdown, excerpt, highlightParts, timeAgo, toLocalInput, fromLocalInput, isLive, statusOf, formatNumber,
+  slugify, readingTime, stripMarkdown, excerpt, highlightParts, timeAgo, toLocalInput, fromLocalInput, isLive, effectiveStatus, formatNumber,
 } from '../src/lib/text.js';
 
 test('slugify', () => {
@@ -80,8 +80,8 @@ test('dates: timeAgo, local input round trip, live/status', () => {
   assert.equal(isLive({ status: 'scheduled', publishedAt: future }, now), false);
   assert.equal(isLive({ status: 'scheduled', publishedAt: past }, now), true);
   assert.equal(isLive({ status: 'published' }, now), true);
-  assert.equal(statusOf({ status: 'scheduled', publishedAt: future }, now), 'scheduled');
-  assert.equal(statusOf({ status: 'scheduled', publishedAt: past }, now), 'published');
+  assert.equal(effectiveStatus({ status: 'scheduled', publishedAt: future }, now), 'scheduled');
+  assert.equal(effectiveStatus({ status: 'scheduled', publishedAt: past }, now), 'published');
 });
 
 test('formatNumber', () => {

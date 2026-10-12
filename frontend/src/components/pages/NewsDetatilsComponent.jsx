@@ -1,177 +1,190 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import API, { authHeaders, errorMessage } from '../../config/API';
+import { useEffect, useRef } from 'react';
+import { Link, useParams, useSearchParams } from 'react-router-dom';
+import API, { authHeaders } from '../../config/API';
 import useAsync from '../../hooks/useAsync';
 import useSeo from '../../hooks/useSeo';
 import { useAuth } from '../../context/AuthContext';
 import { useCategories } from '../../context/CategoriesContext';
-import { useToast } from '../../context/ToastContext';
+import { useReader } from '../../context/ReaderContext';
+import { useBookmarks } from '../../context/BookmarksContext';
 import ArticleCard from '../ui/ArticleCard';
 import BookmarkButton from '../ui/BookmarkButton';
 import Breadcrumbs from '../ui/Breadcrumbs';
 import Cover from '../ui/Cover';
+import FollowButton from '../ui/FollowButton';
 import ShareBar from '../ui/ShareBar';
+import Avatar from '../ui/Avatar';
+import { KindBadge, KindNotice, RatingBox, StatusBadge } from '../ui/Labels';
 import { BackHome, EmptyState, ErrorState, Skeleton } from '../ui/States';
+import Comments from '../article/Comments';
+import LiveBlog from '../article/LiveBlog';
+import { Embed, Gallery } from '../article/Media';
+import { Poll, Reactions } from '../article/Engage';
+import { ProgressBar, ReadAloud, TextControls, useReadingProgress } from '../article/ReaderTools';
 import { renderMarkdown } from '../../lib/markdown';
-import { formatDate, formatDateTime, formatNumber, readingTime, statusOf, timeAgo } from '../../lib/text';
+import { formatDate, formatDateTime, formatNumber, readingTime, timeAgo } from '../../lib/text';
 import { hasImage } from '../../lib/cover';
+import { DEMO, BASE_URL, API_URL, SITE_NAME } from '../../config/env';
+import { canEditArticle, classifySource, depthBucket, isLive, inPublicArchive } from '../../shared/rules';
+import { articleJsonLd } from '../../shared/feeds';
 
-function Comments({ newsId }) {
-  const { user } = useAuth();
-  const toast = useToast();
-  const list = useAsync(() => API.get('/comments', { params: { newsId } }).then((r) => r.data), [newsId]);
-  const [values, setValues] = useState({ name: '', body: '' });
-  const [errors, setErrors] = useState({});
-  const [busy, setBusy] = useState(false);
-  const [notice, setNotice] = useState('');
+const shareUrlFor = (slug) => (DEMO ? `${window.location.origin}${BASE_URL}a/${slug}/` : `${API_URL}/share/${slug}`);
 
-  const submit = async (e) => {
-    e.preventDefault();
-    const f = {};
-    if (!user && !values.name.trim()) f.name = 'Please tell us your name';
-    if (!values.body.trim()) f.body = 'Write a comment first';
-    else if (values.body.length > 1000) f.body = 'Comments can be at most 1000 characters';
-    setErrors(f);
-    if (Object.keys(f).length) return;
-    setBusy(true);
-    try {
-      const res = await API.post('/comments', { newsId, name: user ? undefined : values.name.trim(), body: values.body.trim() }, { headers: authHeaders() });
-      setValues({ name: values.name, body: '' });
-      setNotice(res.data.message);
-      toast.success(res.data.message);
-      if (res.data.status === 'approved') list.reload();
-    } catch (err) {
-      const data = err.response && err.response.data;
-      if (data && data.errors) setErrors(data.errors);
-      else toast.error(errorMessage(err));
-    } finally {
-      setBusy(false);
-    }
-  };
-
-  const comments = list.data || [];
+function Skel() {
   return (
-    <section className="comments" aria-labelledby="comments-heading">
-      <h2 id="comments-heading" className="section-title">Comments{list.data ? ` (${comments.length})` : ''}</h2>
-      {list.error ? <ErrorState title="Comments could not be loaded" onRetry={list.reload} /> : !list.data ? <Skeleton className="skeleton-row" /> : comments.length === 0 ? (
-        <p className="muted">No comments yet. Be the first to share a thought.</p>
-      ) : (
-        <ul className="comment-list">
-          {comments.map((c) => (
-            <li key={c._id} className="comment">
-              <span className="comment-avatar" aria-hidden="true">{c.name.charAt(0).toUpperCase()}</span>
-              <div>
-                <p className="comment-head"><strong>{c.name}</strong> <time dateTime={c.createdAt} title={formatDateTime(c.createdAt)}>{timeAgo(c.createdAt)}</time></p>
-                <p className="comment-body">{c.body}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      )}
-      <form className="card form-card comment-form" onSubmit={submit} noValidate>
-        <h3>Leave a comment</h3>
-        <p className="muted">Comments appear after a moderator has approved them.</p>
-        {!user && (
-          <div className="field">
-            <label htmlFor="cm-name">Name</label>
-            <input id="cm-name" className={`input ${errors.name ? 'is-invalid' : ''}`} maxLength={60} value={values.name} onChange={(e) => setValues({ ...values, name: e.target.value })} aria-invalid={!!errors.name} />
-            {errors.name && <p className="field-error">{errors.name}</p>}
-          </div>
-        )}
-        <div className="field">
-          <label htmlFor="cm-body">Comment{user ? ` as ${user.name}` : ''}</label>
-          <textarea id="cm-body" rows="4" className={`input ${errors.body ? 'is-invalid' : ''}`} value={values.body} onChange={(e) => setValues({ ...values, body: e.target.value })} aria-invalid={!!errors.body} />
-          <p className="field-hint">{values.body.length}/1000</p>
-          {errors.body && <p className="field-error">{errors.body}</p>}
-        </div>
-        <button type="submit" className="btn btn-primary" disabled={busy}>{busy ? 'Posting…' : 'Post comment'}</button>
-        {notice && <p className="notice" role="status">{notice}</p>}
-      </form>
-    </section>
+    <div className="container section page-narrow" role="status" aria-label="Loading article">
+      <Skeleton className="skeleton-line short" /><Skeleton className="skeleton-title" /><Skeleton className="skeleton-line" /><Skeleton className="skeleton-line medium" /><Skeleton className="skeleton-wide skeleton-cover" />
+    </div>
   );
 }
 
 export default function NewsDetatilsComponent() {
   const { slug } = useParams();
+  const [params] = useSearchParams();
   const { byId } = useCategories();
-  const detail = useAsync(() => API.get(`/news/news-details/${slug}`, { headers: authHeaders() }).then((r) => r.data), [slug]);
-  const article = detail.data ? detail.data.findNews : null;
-  const related = detail.data ? detail.data.relatedNews : [];
+  const { user, isEditor } = useAuth();
+  const { addHistory, toggleQueue, inQueue } = useReader();
+  const bodyRef = useRef(null);
+  const sent = useRef({ id: null, depth: new Set() });
+  const result = useAsync(() => API.get(`/news/news-details/${slug}`, { headers: authHeaders() }).then((r) => r.data), [slug, user && user._id]);
+  const { copies } = useBookmarks();
+  // offline: fall back to the copy kept with the saved story
+  const offlineCopy = result.error && !result.error.response ? Object.values(copies).find((a) => a.slug === slug) : null;
+  const article = result.data ? result.data.findNews : offlineCopy;
   const category = article ? byId(article.categoryId) : null;
+  const live = article ? inPublicArchive(article) : false;
+  const pct = useReadingProgress(bodyRef, !!article);
 
-  useSeo({
-    title: article ? article.title : 'Article',
-    description: article ? article.summary : undefined,
-    image: article && hasImage(article.image) ? article.image : undefined,
-    type: 'article',
-  });
+  const ld = article && live ? articleJsonLd(
+    { ...article, category: category ? { name: category.name } : undefined, author: article.author },
+    { siteUrl: window.location.origin, siteName: SITE_NAME, articleUrl: () => window.location.href.split('#')[0] + window.location.hash.split('?')[0], sectionUrl: () => window.location.origin, feedUrl: () => window.location.origin, imageUrl: hasImage(article.image) && /^https?:/.test(article.image) ? article.image : undefined },
+  ) : undefined;
+  useSeo({ title: article ? article.title : 'Article', description: article ? article.summary : undefined, image: article ? article.image : undefined, type: 'article', jsonLd: ld, noindex: !!article && !live });
 
-  // count a view once per visit to a published article
-  const viewId = article && statusOf(article) === 'published' ? article._id : null;
+  // one view per visit: history, traffic source and the headline-test click
   useEffect(() => {
-    if (viewId) API.post(`/news/${viewId}/view`).catch(() => {});
-  }, [viewId]);
+    if (!article || sent.current.id === article._id) return;
+    sent.current = { id: article._id, depth: new Set() };
+    addHistory(article);
+    if (!inPublicArchive(article)) return;
+    API.post(`/news/${article._id}/view`, { source: classifySource(document.referrer, window.location.hostname, params.get('src')), variant: params.get('v') || undefined }).catch(() => {});
+  }, [article, addHistory, params]);
+  // reading depth milestones
+  useEffect(() => {
+    if (!article || !inPublicArchive(article)) return;
+    const bucket = depthBucket(pct);
+    if (bucket && !sent.current.depth.has(bucket)) {
+      for (const d of [25, 50, 75, 100]) {
+        if (d <= bucket && !sent.current.depth.has(d)) {
+          sent.current.depth.add(d);
+          API.post(`/news/${article._id}/depth`, { depth: d }).catch(() => {});
+        }
+      }
+    }
+  }, [pct, article]);
 
-  if (detail.error) {
-    const missing = detail.error.response && detail.error.response.status === 404;
+  if (result.error && !offlineCopy) {
+    const notFound = result.error.response && result.error.response.status === 404;
     return (
       <div className="container section">
-        {missing
-          ? <EmptyState icon="bi-file-earmark-x" title="Article not found" action={<BackHome />}>It may have been unpublished or the link is wrong.</EmptyState>
-          : <ErrorState onRetry={detail.reload} />}
+        {notFound ? <EmptyState icon="bi-file-earmark-x" title="Story not found" action={<BackHome />}>This story does not exist, or it is not published.</EmptyState> : <ErrorState onRetry={result.reload} />}
       </div>
     );
   }
-  if (!article) {
-    return (
-      <div className="container section page-narrow" role="status" aria-label="Loading article">
-        <Skeleton className="skeleton-line short" />
-        <Skeleton className="skeleton-title" />
-        <Skeleton className="skeleton-cover skeleton-wide" />
-        {[0, 1, 2, 3, 4].map((i) => <Skeleton key={i} className="skeleton-line" />)}
-      </div>
-    );
-  }
+  if (!article) return <Skel />;
 
-  const state = statusOf(article);
+  const related = result.data ? result.data.relatedNews : [];
+  const engagement = result.data ? result.data.engagement : { reactions: {}, mine: null, poll: null };
+  const html = renderMarkdown(article.description || '');
   const minutes = readingTime(article.description || article.summary);
-  return (
-    <article className="container section article">
-      <Breadcrumbs items={[
-        { label: 'Home', to: '/' },
-        ...(category ? [{ label: category.name, to: `/category/${category.slug}` }] : []),
-        { label: article.title },
-      ]}
-      />
-      {state !== 'published' && <p className="notice notice-warn" role="status"><i className="bi bi-eye-slash" aria-hidden="true" /> Preview: this article is a {state} and is not visible to the public.</p>}
-      <header className="article-head">
-        {category && <Link to={`/category/${category.slug}`} className="kicker">{category.name}</Link>}
-        <h1 className="article-title">{article.title}</h1>
-        <p className="article-summary">{article.summary}</p>
-        <p className="meta">
-          <time dateTime={article.publishedAt}>{formatDate(article.publishedAt || article.createdAt)}</time>
-          <span aria-hidden="true">·</span><span>{minutes} min read</span>
-          <span aria-hidden="true">·</span><span><i className="bi bi-eye" aria-hidden="true" /> {formatNumber(article.views)} views</span>
-        </p>
-        <div className="article-actions">
-          <BookmarkButton id={article._id} title={article.title} variant="full" />
-          <ShareBar title={article.title} summary={article.summary} />
-        </div>
-      </header>
-      <Cover article={article} categoryName={category ? category.name : ''} className="article-cover" eager />
-      <div className="prose" dangerouslySetInnerHTML={{ __html: renderMarkdown(article.description || article.summary) }} />
+  const showStatus = !isLive(article) && article.status !== 'archived';
+  const editable = !!user && canEditArticle(article, user);
+  const author = article.author;
+  const showAuthor = author && author.name && author.name !== 'Former contributor';
 
-      {article.description && <div className="article-foot"><ShareBar title={article.title} summary={article.summary} /></div>}
+  return (
+    <article className="container section article" aria-labelledby="article-title">
+      <ProgressBar pct={pct} />
+      {offlineCopy && <p className="notice notice-warn" role="status"><i className="bi bi-wifi-off" aria-hidden="true" /> You are offline. This is the copy saved on your device.</p>}
+      <Breadcrumbs items={[{ label: 'Home', to: '/' }, ...(category ? [{ label: category.name, to: `/category/${category.slug}` }] : []), { label: article.title }]} />
+
+      {showStatus && (
+        <p className="notice notice-warn" role="status">
+          <i className="bi bi-eye-slash" aria-hidden="true" />
+          <span><StatusBadge status={article.status} /> This story is not public yet. Only you and the newsroom can see it.{' '}
+            {editable && <Link to={`/admin/edit-news/${article._id}`}>Open in the editor</Link>}</span>
+        </p>
+      )}
+      {article.status === 'archived' && <p className="notice" role="note"><i className="bi bi-archive" aria-hidden="true" /> This story is from the archive and may be out of date.</p>}
+
+      <p className="card-labels">
+        {category && <Link to={`/category/${category.slug}`} className="kicker">{category.name}</Link>}
+        <KindBadge article={article} />
+      </p>
+      <h1 id="article-title" className="article-title">{article.title}</h1>
+      <p className="article-summary">{article.summary}</p>
+      <KindNotice article={article} />
+      <p className="meta byline">
+        {showAuthor && <Link to={`/author/${author._id}`} className="byline-author"><Avatar user={author} size="sm" /> {author.name}</Link>}
+        <time dateTime={article.publishedAt || article.createdAt}>{formatDate(article.publishedAt || article.createdAt)}</time>
+        <span aria-hidden="true">·</span><span>{minutes} min read</span>
+        {article.updatedAt && article.publishedAt && new Date(article.updatedAt) - new Date(article.publishedAt) > 3600000 && <><span aria-hidden="true">·</span><span title={formatDateTime(article.updatedAt)}>Updated {timeAgo(article.updatedAt)}</span></>}
+        {article.views > 0 && <><span aria-hidden="true">·</span><span><i className="bi bi-eye" aria-hidden="true" /> {formatNumber(article.views)} views</span></>}
+      </p>
+
+      <div className="article-actions">
+        <BookmarkButton variant="full" id={article._id} title={article.title} article={article} />
+        <button type="button" className={`btn btn-secondary ${inQueue(article._id) ? 'is-active' : ''}`} aria-pressed={inQueue(article._id)} onClick={() => toggleQueue(article)}>
+          <i className="bi bi-headphones" aria-hidden="true" /> {inQueue(article._id) ? 'In listen queue' : 'Listen later'}
+        </button>
+        <ReadAloud article={article} />
+        <ShareBar title={article.title} summary={article.summary} shareUrl={live ? shareUrlFor(article.slug) : undefined} />
+      </div>
+      <TextControls />
+
+      {(hasImage(article.image) || !article.gallery || article.gallery.length === 0) && (
+        <figure className="article-cover-fig">
+          <Cover article={article} categoryName={category ? category.name : ''} className="article-cover" eager alt={article.imageAlt || ''} />
+          {article.imageAlt && <figcaption className="muted small">{article.imageAlt}</figcaption>}
+        </figure>
+      )}
+
+      {article.kind === 'fact-check' && <RatingBox factCheck={article.factCheck} />}
+      {article.kind === 'live' && <LiveBlog article={article} />}
+      <Embed embed={article.embed} />
+
+      <div ref={bodyRef} className="prose article-body" dangerouslySetInnerHTML={{ __html: html }} />
+
+      {article.gallery && article.gallery.length > 0 && <Gallery items={article.gallery} />}
+      {article.poll && engagement.poll && <Poll newsId={article._id} initial={engagement.poll} />}
+      {live && result.data && <Reactions newsId={article._id} initial={engagement} />}
+
+      <footer className="article-foot">
+        {article.tags && article.tags.length > 0 && (
+          <p className="tags" aria-label="Topics">{article.tags.map((t) => <Link key={t} className="tag" to={`/news?tag=${t}`}>#{t}</Link>)}</p>
+        )}
+        {showAuthor && (
+          <section className="author-box" aria-label={`About ${author.name}`}>
+            <Avatar user={author} size="lg" />
+            <div>
+              <h2 className="author-name"><Link to={`/author/${author._id}`}>{author.name}</Link></h2>
+              <p className="muted">{author.bio || 'Contributor'}</p>
+              <FollowButton kind="author" id={author._id} label={author.name} />
+            </div>
+          </section>
+        )}
+        {category && <p><FollowButton kind="topic" id={category._id} label={category.name} /> <span className="muted small">to see more {category.name} stories in For you</span></p>}
+        {isEditor && <p className="small"><Link to={`/admin/edit-news/${article._id}`}><i className="bi bi-pencil" aria-hidden="true" /> Edit this story</Link></p>}
+      </footer>
+
+      {live && result.data && <Comments newsId={article._id} />}
 
       {related.length > 0 && (
-        <section className="related" aria-labelledby="related-heading">
-          <h2 id="related-heading" className="section-title">Related articles</h2>
-          <div className="grid grid-2">
-            {related.map((a) => <ArticleCard key={a._id} article={a} category={byId(a.categoryId)} />)}
-          </div>
+        <section className="related" aria-labelledby="related-h">
+          <h2 id="related-h" className="section-title">More from {category ? category.name : 'this section'}</h2>
+          <div className="grid grid-2">{related.map((r) => <ArticleCard key={r._id} article={r} category={byId(r.categoryId)} />)}</div>
         </section>
       )}
-      {state === 'published' && <Comments newsId={article._id} />}
     </article>
   );
 }

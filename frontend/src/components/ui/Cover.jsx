@@ -1,8 +1,9 @@
 import { useId, useMemo } from 'react';
 import { coverSpec, hasImage } from '../../lib/cover';
 
-// Article image, or drawn artwork when the article has no picture.
-export default function Cover({ article, categoryName, className = '', eager = false }) {
+// Article image, or drawn artwork when the article has no picture. Pass `alt` on article pages;
+// in lists the picture is decorative because the headline next to it says the same thing.
+export default function Cover({ article, categoryName, className = '', eager = false, alt = '' }) {
   const gid = useId().replace(/:/g, '');
   const seed = article ? article.slug || article.title : 'news';
   const spec = useMemo(() => coverSpec(seed, categoryName), [seed, categoryName]);
@@ -10,13 +11,13 @@ export default function Cover({ article, categoryName, className = '', eager = f
   if (article && hasImage(article.image)) {
     return (
       <div className={`cover ${className}`}>
-        <img src={article.image} alt="" loading={eager ? 'eager' : 'lazy'} decoding="async" />
+        <img src={article.image} alt={alt} loading={eager ? 'eager' : 'lazy'} decoding="async" />
       </div>
     );
   }
   return (
-    <div className={`cover ${className}`} aria-hidden="true">
-      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" focusable="false">
+    <div className={`cover ${className}`} role={alt ? 'img' : undefined} aria-label={alt || undefined} aria-hidden={alt ? undefined : 'true'}>
+      <svg viewBox="0 0 800 450" preserveAspectRatio="xMidYMid slice" focusable="false" aria-hidden="true">
         <defs>
           <linearGradient id={`g${gid}`} x1="0" y1="0" x2="1" y2="1">
             <stop offset="0" stopColor={spec.from} />

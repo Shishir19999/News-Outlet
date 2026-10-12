@@ -11,11 +11,11 @@ export default [
   react.configs.flat['jsx-runtime'],
   reactHooks.configs.flat.recommended,
   {
-    files: ['**/*.{js,jsx}'],
+    files: ['**/*.{js,jsx,mjs}'],
     languageOptions: {
       ecmaVersion: 'latest',
       sourceType: 'module',
-      globals: globals.browser,
+      globals: { ...globals.browser, ...globals.node },
       parserOptions: { ecmaFeatures: { jsx: true } },
     },
     settings: { react: { version: 'detect' } },

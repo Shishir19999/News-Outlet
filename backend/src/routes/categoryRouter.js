@@ -6,8 +6,9 @@ const categoryRouter = express.Router();
 const cInstance = new CategoryController();
 
 categoryRouter.get('/', cInstance.index);
-categoryRouter.post('/',Auth.check, Auth.admin, cInstance.store);
+categoryRouter.get('/menu', cInstance.menu);
+categoryRouter.post('/',Auth.check, Auth.can('sections'), cInstance.store);
 categoryRouter.get('/:id', cInstance.show);
-categoryRouter.put('/:id',Auth.check, Auth.admin, cInstance.update);
-categoryRouter.delete('/:id',Auth.check, Auth.admin, cInstance.destroy);
+categoryRouter.put('/:id',Auth.check, Auth.can('sections'), cInstance.update);
+categoryRouter.delete('/:id',Auth.check, Auth.can('sections'), cInstance.destroy);
 export default categoryRouter;

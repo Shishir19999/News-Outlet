@@ -10,7 +10,7 @@ export default function MyProfileComponent() {
   const { user, refresh } = useAuth();
   const toast = useToast();
   const confirm = useConfirm();
-  const [form, setForm] = useState({ name: user.name, gender: user.gender || 'male', password: '' });
+  const [form, setForm] = useState({ name: user.name, bio: user.bio || '', password: '' });
   const [errors, setErrors] = useState({});
   const [busy, setBusy] = useState(false);
 
@@ -23,7 +23,7 @@ export default function MyProfileComponent() {
     if (Object.keys(f).length) return;
     setBusy(true);
     try {
-      const body = { name: form.name.trim(), gender: form.gender };
+      const body = { name: form.name.trim(), bio: form.bio.trim() };
       if (form.password) body.password = form.password;
       await API.put(`/user/${user._id}`, body, { headers: authHeaders() });
       await refresh();
@@ -90,10 +90,8 @@ export default function MyProfileComponent() {
             {errors.name && <p className="field-error">{errors.name}</p>}
           </div>
           <div className="field">
-            <label htmlFor="p-gender">Gender</label>
-            <select id="p-gender" className="input" value={form.gender} onChange={(e) => setForm({ ...form, gender: e.target.value })}>
-              <option value="male">Male</option><option value="female">Female</option>
-            </select>
+            <label htmlFor="p-bio">Short bio (shown on your writer page)</label>
+            <textarea id="p-bio" className="input" rows="3" maxLength={300} value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} />
           </div>
           <div className="field">
             <label htmlFor="p-pass">New password</label>

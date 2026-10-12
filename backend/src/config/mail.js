@@ -35,9 +35,21 @@ export function fromAddress(env = process.env) {
     return env.SMTP_FROM || smtpUser(env) || env.RECIPIENT_EMAIL;
 }
 
+// One lazily created transport for the whole app; tests swap it for a capture transport.
+let shared = null;
+export function setMailTransport(t) { shared = t; }
+export function getMailTransport() {
+    if (!shared) shared = createTransport();
+    return shared;
+}
+// Sends one message from the configured sender. Throws when the transport fails.
+export async function sendMail({ to, subject, text, html, replyTo }) {
+    return getMailTransport().sendMail({ from: fromAddress(), to, subject, text, html, ...(replyTo ? { replyTo } : {}) });
+}
+
 export function logMailStartupChecks(env = process.env, log = console) {
     if (!env.SMTP_PASSWORD) {
-        log.warn('[mail] SMTP_PASSWORD is not set - contact-form emails will fail. For Gmail create an App Password and put it in backend/.env (see README).');
+        log.warn('[mail] SMTP_PASSWORD is not set - contact-form and newsletter e-mails will fail. For Gmail create an App Password and put it in backend/.env (see README).');
     }
     if (!env.RECIPIENT_EMAIL) {
         log.warn('[mail] RECIPIENT_EMAIL is not set - contact-form emails have no recipient.');
