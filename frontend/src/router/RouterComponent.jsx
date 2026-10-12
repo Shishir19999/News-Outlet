@@ -5,15 +5,19 @@ import AboutComponent from '../components/pages/AboutComponent';
 import ContactComponent from '../components/pages/ContactComponent';
 import NewsComponent from '../components/pages/NewsComponent';
 import CategoryComponent from '../components/pages/CategoryComponent';
-import BookmarksComponent from '../components/pages/BookmarksComponent';
 import NewsDetatilsComponent from '../components/pages/NewsDetatilsComponent';
+import {
+  ArchivePage, AuthorPage, AuthorsPage, ForYouPage, LibraryPage, NewsletterConfirmPage, NewsletterPreferencesPage, InboxPage,
+} from '../components/pages/ReaderPages';
 import PageNotFoundComponent from '../components/error/PageNotFoundComponent';
 import AdminMiddlewareComponent from '../middleware/AdminMiddlewareComponent';
 import DashboardComponent from '../components/admin/DashboardComponent';
 import AddNewsComponent from '../components/admin/AddNewsComponent';
 import ShowNewsComponent from '../components/admin/ShowNewsComponent';
+import ReviewDeskComponent from '../components/admin/ReviewDeskComponent';
 import CommentsComponent from '../components/admin/CommentsComponent';
 import SubscribersComponent from '../components/admin/SubscribersComponent';
+import { SettingsPage, AuditPage } from '../components/admin/SiteAdmin';
 import LoginComponent from '../components/auth/LoginComponent';
 import RegisterComponent from '../components/auth/RegisterComponent';
 import UsersListComponent from '../components/admin/UsersListComponent';
@@ -30,7 +34,15 @@ export default function RouterComponent() {
         <Route path="contact" element={<ContactComponent />} />
         <Route path="news" element={<NewsComponent />} />
         <Route path="category/:slug" element={<CategoryComponent />} />
-        <Route path="bookmarks" element={<BookmarksComponent />} />
+        <Route path="archive" element={<ArchivePage />} />
+        <Route path="authors" element={<AuthorsPage />} />
+        <Route path="author/:id" element={<AuthorPage />} />
+        <Route path="for-you" element={<ForYouPage />} />
+        <Route path="bookmarks" element={<LibraryPage />} />
+        <Route path="library" element={<LibraryPage />} />
+        <Route path="newsletter/confirm" element={<NewsletterConfirmPage />} />
+        <Route path="newsletter/preferences" element={<NewsletterPreferencesPage />} />
+        <Route path="inbox" element={<InboxPage />} />
         <Route path="login" element={<LoginComponent />} />
         <Route path="register" element={<RegisterComponent />} />
         <Route path="news-details/:slug" element={<NewsDetatilsComponent />} />
@@ -46,8 +58,13 @@ export default function RouterComponent() {
         <Route path="add-news" element={<AddNewsComponent />} />
         <Route path="edit-news/:id" element={<AddNewsComponent />} />
         <Route path="show-news" element={<ShowNewsComponent />} />
+        <Route path="review" element={<ReviewDeskComponent />} />
         <Route path="comments" element={<CommentsComponent />} />
+        <Route path="alert" element={<SettingsPage />} />
+        <Route path="settings" element={<SettingsPage />} />
+        <Route path="newsletter" element={<SubscribersComponent />} />
         <Route path="subscribers" element={<SubscribersComponent />} />
+        <Route path="audit" element={<AuditPage />} />
       </Route>
     </Routes>
   );

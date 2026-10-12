@@ -1,25 +1,32 @@
-// axios adapter that routes every request to the in-browser demo backend.
+// axios adapter that routes every request to the in-browser backend of the live preview.
 import { AxiosError } from 'axios';
 import { createDemoBackend } from './backend.js';
 import { fileToDataUrl } from './images.js';
+import { emitLocal } from '../lib/realtime.js';
 
 let backend = null;
+let channel = null;
 export function getBackend() {
-  if (!backend) backend = createDemoBackend({ storage: window.localStorage });
+  if (!backend) {
+    try { channel = typeof BroadcastChannel !== 'undefined' ? new BroadcastChannel('news-preview-rt') : null; } catch { channel = null; }
+    backend = createDemoBackend({
+      storage: window.localStorage,
+      // other tabs get the event over the channel; this tab is told directly
+      emit: (event, payload) => { emitLocal(event, payload); if (channel) channel.postMessage({ event, payload }); },
+    });
+    // another tab changed the data: reload it before the next request
+    window.addEventListener('storage', (e) => { if (e.key === backend.STORE_KEY) backend.invalidate(); });
+  }
   return backend;
 }
 
-// Gives the demo a realistic feel: every call takes a short, slightly random time.
+// Gives the preview a realistic feel: every call takes a short, slightly random time.
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-const latency = () => 140 + Math.random() * 260;
+const latency = () => 90 + Math.random() * 180;
 
 async function readBody(data) {
   if (typeof data === 'string') {
-    try {
-      return JSON.parse(data);
-    } catch {
-      return {};
-    }
+    try { return JSON.parse(data); } catch { return {}; }
   }
   if (typeof FormData !== 'undefined' && data instanceof FormData) {
     const out = {};
@@ -39,8 +46,9 @@ export async function demoAdapter(config) {
   await wait(latency());
   const body = await readBody(config.data);
   const headers = {};
-  const auth = config.headers && (config.headers.get ? config.headers.get('authorization') : config.headers.authorization);
-  if (auth) headers.authorization = auth;
+  const get = (name) => (config.headers && (config.headers.get ? config.headers.get(name) : config.headers[name])) || '';
+  if (get('authorization')) headers.authorization = get('authorization');
+  if (get('x-client-id')) headers['x-client-id'] = get('x-client-id');
   const result = getBackend().handle({ method: config.method, url: config.url, params: config.params, headers, data: body });
   const response = {
     data: JSON.parse(JSON.stringify(result.data ?? null)),

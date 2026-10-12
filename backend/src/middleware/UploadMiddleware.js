@@ -5,7 +5,7 @@ class UploadMiddleware{
     folder_exists(folder){
         const path = `public/${folder}`;
         if (!fs.existsSync(path)){
-            fs.mkdirSync(path);
+            fs.mkdirSync(path, { recursive: true });
             return true;
         }
         return false;
@@ -17,12 +17,16 @@ class UploadMiddleware{
                 cb(null, `public/${destination}`);
             },
             filename: function (req, file, cb) {
-                let fileName = file.originalname.trim();
-                let imageName = Date.now() + '-' + Math.round(Math.random() * 1E9) + "-" + fileName;
-                cb(null, imageName)
+                const fileName = file.originalname.trim().replace(/[^\w.-]+/g, '_');
+                cb(null, Date.now() + '-' + Math.round(Math.random() * 1E9) + "-" + fileName);
             }
         });
-        return multer({storage: this.storage});
+        // pictures only, at most 8 MB
+        return multer({
+            storage: this.storage,
+            limits: { fileSize: 8 * 1024 * 1024 },
+            fileFilter: (req, file, cb) => cb(null, /^image\/(png|jpe?g|gif|webp|svg\+xml|avif)$/.test(file.mimetype)),
+        });
     }
 }
 export default UploadMiddleware;

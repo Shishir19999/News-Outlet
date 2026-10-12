@@ -36,6 +36,8 @@ export function renderMarkdown(src) {
   const lines = String(src || '').replace(/\r\n?/g, '\n').split('\n');
   const html = [];
   let i = 0;
+  // body headings start at h2 (the story headline is the page h1), whatever level the writer used first
+  const minLevel = Math.min(6, ...lines.map((l) => { const m = /^(#{1,6})\s+/.exec(l); return m ? m[1].length : 6; }));
   const startsBlock = (l) => /^(#{1,6}\s|>|\s*[-*+]\s|\s*\d+\.\s|```|(-{3,}|\*{3,})\s*$)/.test(l);
 
   while (i < lines.length) {
@@ -55,7 +57,7 @@ export function renderMarkdown(src) {
     const h = /^(#{1,6})\s+(.*)$/.exec(line);
     if (h) {
       // article title is the page h1, so body headings start at h2
-      const level = Math.min(h[1].length + 1, 6);
+      const level = Math.min(h[1].length - minLevel + 2, 6);
       html.push(`<h${level}>${inline(h[2].trim())}</h${level}>`);
       i++;
       continue;

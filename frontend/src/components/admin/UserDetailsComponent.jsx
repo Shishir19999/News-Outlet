@@ -8,6 +8,7 @@ import { useToast } from '../../context/ToastContext';
 import { ErrorState, Skeleton } from '../ui/States';
 import Avatar from '../ui/Avatar';
 import { formatDate } from '../../lib/text';
+import { ROLES, ROLE_INFO } from '../../shared/rules';
 
 function RoleForm({ user, onSaved }) {
   const toast = useToast();
@@ -31,8 +32,7 @@ function RoleForm({ user, onSaved }) {
       <div className="field">
         <label htmlFor="u-role">Role</label>
         <select id="u-role" className="input" value={role} onChange={(e) => setRole(e.target.value)}>
-          <option value="user">User (can write articles)</option>
-          <option value="admin">Admin (full access)</option>
+          {ROLES.map((r) => <option key={r} value={r}>{r[0].toUpperCase() + r.slice(1)}: {ROLE_INFO[r]}</option>)}
         </select>
       </div>
       <button type="submit" className="btn btn-primary" disabled={busy || role === user.role}>Save role</button>
@@ -71,7 +71,8 @@ export default function UserDetailsComponent() {
         <Avatar user={u} size="lg" />
         <dl className="details">
           <dt>Email</dt><dd>{u.email}</dd>
-          <dt>Gender</dt><dd>{u.gender}</dd>
+          <dt>Role</dt><dd>{u.role}</dd>
+          <dt>Bio</dt><dd>{u.bio || '-'}</dd>
           <dt>Joined</dt><dd>{formatDate(u.createdAt)}</dd>
         </dl>
       </div>

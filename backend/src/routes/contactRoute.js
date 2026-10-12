@@ -1,5 +1,5 @@
 import express from "express";
-import ContactController from "../controller/ContactController.js";
+import ContactController from "../controller/contactController.js";
 
 const contactRoute = express.Router();
 // Replaceable so tests can inject a stub mailer.

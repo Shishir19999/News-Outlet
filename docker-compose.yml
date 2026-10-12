@@ -18,6 +18,7 @@ services:
       MODE: production
       HTTP_S: http://localhost
       PUBLIC_URL: ${PUBLIC_URL:-http://localhost:8080}
+      SITE_URL: ${SITE_URL:-http://localhost:8081}
       MONGODB_URL: mongodb://mongo:27017/news
     ports:
       - "8080:8080"

@@ -6,16 +6,17 @@
   --surface-2: #eef1f8;
   --text: #141a2b;
   --text-soft: #4b556e;
-  --text-faint: #6b7590;
+  --text-faint: #566079;
   --border: #dde2ee;
   --brand: #1d4ed8;
   --brand-strong: #1e40af;
   --brand-soft: #e3ebff;
   --on-brand: #ffffff;
   --accent: #e0457b;
+  --accent-strong: #b3144c;
   --danger: #c42b3a;
   --danger-soft: #fde8ea;
-  --success: #17803d;
+  --success: #136a31;
   --success-soft: #e0f5e8;
   --warn: #9a5b00;
   --warn-soft: #fff2d6;
@@ -43,6 +44,7 @@
   --brand-soft: #1b2850;
   --on-brand: #0b1022;
   --accent: #ff7aa8;
+  --accent-strong: #ff7aa8;
   --danger: #ff7a86;
   --danger-soft: #3a1a20;
   --success: #5fd68a;
@@ -135,7 +137,7 @@ textarea.input { resize: vertical; min-height: 0; }
 .grid-2 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr)); }
 .grid-3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); }
 .is-loading { opacity: .6; transition: opacity .2s; }
-.kicker { display: inline-block; font-size: .74rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); }
+.kicker { display: inline-block; font-size: .74rem; font-weight: 800; letter-spacing: .09em; text-transform: uppercase; color: var(--accent-strong); }
 .kicker-light { color: #ffd2e1; }
 .meta { display: flex; flex-wrap: wrap; gap: .3em .5em; color: var(--text-faint); font-size: .84rem; margin: 0; }
 .meta-light { color: rgb(255 255 255 / 80%); }
@@ -157,7 +159,7 @@ textarea.input { resize: vertical; min-height: 0; }
 .main-nav a, .category-bar a { color: var(--text-soft); font-weight: 600; font-size: .94rem; padding: 8px 12px; border-radius: 8px; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; white-space: nowrap; }
 .main-nav a:hover, .category-bar a:hover { background: var(--surface-2); color: var(--text); }
 .main-nav a.active { color: var(--brand); background: var(--brand-soft); }
-.count-badge { background: var(--accent); color: #fff; border-radius: 99px; font-size: .7rem; padding: 0 6px; line-height: 1.5; }
+.count-badge { background: var(--accent-strong); color: #fff; border-radius: 99px; font-size: .7rem; padding: 0 6px; line-height: 1.5; }
 .search-form { display: flex; align-items: center; margin-left: auto; gap: 2px; max-width: 280px; flex: 1; }
 .search-form .input { border-radius: 99px; min-height: 38px; }
 .header-actions { display: flex; align-items: center; gap: 6px; margin-left: auto; }

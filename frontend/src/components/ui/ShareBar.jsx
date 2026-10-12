@@ -1,8 +1,8 @@
 import { useToast } from '../../context/ToastContext';
 
-export default function ShareBar({ title, summary }) {
+export default function ShareBar({ title, summary, shareUrl }) {
   const toast = useToast();
-  const url = window.location.href;
+  const url = shareUrl || window.location.href;
   const enc = encodeURIComponent;
   const targets = [
     ['X', 'bi-twitter-x', `https://twitter.com/intent/tweet?text=${enc(title)}&url=${enc(url)}`],

@@ -1,0 +1,21 @@
+{
+  "name": "News Outlet",
+  "short_name": "News Outlet",
+  "description": "Independent reporting on technology, business, science, sports, culture and the world.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f6f7fb",
+  "theme_color": "#1d4ed8",
+  "categories": ["news"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ],
+  "shortcuts": [
+    { "name": "Latest news", "url": "./#/news" },
+    { "name": "Library", "url": "./#/bookmarks" }
+  ]
+}

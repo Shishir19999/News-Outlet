@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import API, { authHeaders, errorMessage } from '../../config/API';
 import useAsync from '../../hooks/useAsync';
 import { useAuth } from '../../context/AuthContext';
@@ -7,119 +7,81 @@ import { useCategories } from '../../context/CategoriesContext';
 import { useConfirm } from '../../context/ConfirmContext';
 import { useToast } from '../../context/ToastContext';
 import PaginationComponent from '../layouts/PaginationComponent';
+import { StatusBadge } from '../ui/Labels';
 import { EmptyState, ErrorState, TableSkeleton } from '../ui/States';
-import { formatDateTime, formatNumber, statusOf } from '../../lib/text';
+import { formatDate, formatNumber } from '../../lib/text';
+import { STATUSES, STATUS_LABEL, KIND_LABEL } from '../../shared/rules';
 
-const STATUS_LABEL = { published: 'Published', draft: 'Draft', scheduled: 'Scheduled' };
+const TABS = [['', 'All'], ['draft', 'Drafts'], ['review', 'In review'], ['changes_requested', 'Changes requested'], ['approved', 'Approved'], ['scheduled', 'Scheduled'], ['published', 'Published'], ['archived', 'Archived']];
 
 export default function ShowNewsComponent() {
-  const { isAdmin } = useAuth();
+  const { isAdmin, isEditor } = useAuth();
   const { byId } = useCategories();
-  const confirm = useConfirm();
   const toast = useToast();
-  const [page, setPage] = useState(1);
-  const [status, setStatus] = useState('');
-  const [draft, setDraft] = useState('');
+  const confirm = useConfirm();
+  const [params, setParams] = useSearchParams();
+  const status = params.get('status') || '';
+  const [q, setQ] = useState('');
   const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  useEffect(() => { const t = setTimeout(() => { setSearch(q.trim()); setPage(1); }, 300); return () => clearTimeout(t); }, [q]);
 
-  useEffect(() => {
-    const t = setTimeout(() => { setSearch(draft.trim()); setPage(1); }, 300);
-    return () => clearTimeout(t);
-  }, [draft]);
-
-  const list = useAsync(() => API.get('/news/manage/list', {
-    params: { page, limit: 10, search: search || undefined, status: status || undefined }, headers: authHeaders(),
-  }).then((r) => r.data), [page, search, status]);
-
-  const remove = async (item) => {
-    const ok = await confirm({ title: 'Delete this article?', message: `"${item.title}" and its comments will be removed permanently.`, confirmLabel: 'Delete', danger: true });
-    if (!ok) return;
-    try {
-      await API.delete(`/news/${item._id}`, { headers: authHeaders() });
-      toast.success('Article deleted');
-      list.reload();
-    } catch (err) {
-      toast.error(errorMessage(err, 'The article could not be deleted.'));
-    }
-  };
-
-  const publish = async (item) => {
-    const form = new FormData();
-    form.append('status', 'published');
-    try {
-      await API.put(`/news/${item._id}`, form, { headers: authHeaders() });
-      toast.success('Article published');
-      list.reload();
-    } catch (err) {
-      toast.error(errorMessage(err));
-    }
-  };
-
+  const list = useAsync(() => API.get('/news/manage/list', { params: { page, limit: 10, search: search || undefined, status: status || undefined }, headers: authHeaders() }).then((r) => r.data), [page, search, status]);
   const data = list.data;
+  const counts = data ? data.counts : {};
+  const review = ['submitted', 'in_review'].reduce((a, k) => a + (counts[k] || 0), 0);
+
+  const remove = async (a) => {
+    if (!await confirm({ title: 'Delete this article?', message: `"${a.title}" and its comments will be removed for good.`, confirmLabel: 'Delete', danger: true })) return;
+    try { await API.delete(`/news/${a._id}`, { headers: authHeaders() }); toast.success('Article deleted'); list.reload(); } catch (err) { toast.error(errorMessage(err)); }
+  };
+  const countFor = (k) => (k === '' ? Object.values(counts).reduce((a, b) => a + b, 0) : k === 'review' ? review : counts[k] || 0);
+
   return (
     <>
       <div className="page-head">
-        <h1>Articles</h1>
-        <Link to="/admin/add-news" className="btn btn-primary"><i className="bi bi-plus-lg" aria-hidden="true" /> New article</Link>
+        <h1>{isEditor ? 'All articles' : 'My articles'}</h1>
+        <Link to="/admin/add-news" className="btn btn-primary"><i className="bi bi-plus-circle" aria-hidden="true" /> New article</Link>
       </div>
       <div className="panel">
-        <div className="toolbar">
-          <div className="field">
-            <label htmlFor="a-search" className="visually-hidden">Search articles</label>
-            <input id="a-search" type="search" className="input" placeholder="Search by title or summary" value={draft} onChange={(e) => setDraft(e.target.value)} />
-          </div>
-          <div className="field">
-            <label htmlFor="a-status" className="visually-hidden">Filter by status</label>
-            <select id="a-status" className="input" value={status} onChange={(e) => { setStatus(e.target.value); setPage(1); }}>
-              <option value="">All statuses</option>
-              <option value="published">Published</option>
-              <option value="draft">Drafts</option>
-              <option value="scheduled">Scheduled</option>
-            </select>
-          </div>
+        <div className="seg seg-wrap" role="group" aria-label="Filter by status">
+          {TABS.map(([k, label]) => (
+            <button key={k} type="button" className={status === k ? 'is-on' : ''} aria-pressed={status === k} onClick={() => { setPage(1); setParams(k ? { status: k } : {}); }}>{label} <span className="chip-count">{countFor(k)}</span></button>
+          ))}
         </div>
-        {list.error ? <ErrorState onRetry={list.reload} /> : !data ? <TableSkeleton rows={6} /> : data.news.length === 0 ? (
-          <EmptyState icon="bi-newspaper" title="No articles found" action={<Link to="/admin/add-news" className="btn btn-primary">Write the first one</Link>}>
-            Try another search or status filter.
-          </EmptyState>
+        <div className="toolbar">
+          <div className="field"><label htmlFor="s-q" className="visually-hidden">Search articles</label><input id="s-q" type="search" className="input" placeholder="Search by headline or summary" value={q} onChange={(e) => setQ(e.target.value)} /></div>
+        </div>
+        {list.error ? <ErrorState onRetry={list.reload} /> : !data ? <TableSkeleton /> : data.news.length === 0 ? (
+          <EmptyState icon="bi-newspaper" title="No articles here" action={<Link to="/admin/add-news" className="btn btn-primary">Write one</Link>}>{status ? 'Nothing has this status.' : 'Create the first article.'}</EmptyState>
         ) : (
           <div className="table-wrap">
             <table className="data-table">
-              <caption className="visually-hidden">Articles</caption>
-              <thead><tr><th scope="col">Article</th><th scope="col">Category</th><th scope="col">Status</th><th scope="col" className="num">Views</th><th scope="col"><span className="visually-hidden">Actions</span></th></tr></thead>
+              <thead><tr><th scope="col">Article</th><th scope="col">Status</th><th scope="col">Section</th><th scope="col" className="num">Views</th><th scope="col">Updated</th><th scope="col"><span className="visually-hidden">Actions</span></th></tr></thead>
               <tbody>
-                {data.news.map((item) => {
-                  const st = statusOf(item);
-                  return (
-                    <tr key={item._id}>
-                      <td data-label="Article">
-                        <Link to={`/news-details/${item.slug}`} className="cell-title">{item.title}</Link>
-                        <span className="meta">{item.slug}{item.featured ? ' · featured' : ''}</span>
-                      </td>
-                      <td data-label="Category">{(byId(item.categoryId) || {}).name || '-'}</td>
-                      <td data-label="Status">
-                        <span className={`badge badge-${st}`}>{STATUS_LABEL[st]}</span>
-                        {st === 'scheduled' && <span className="meta">{formatDateTime(item.publishedAt)}</span>}
-                      </td>
-                      <td data-label="Views" className="num">{formatNumber(item.views)}</td>
-                      <td className="row-actions">
-                        {isAdmin ? (
-                          <>
-                            {st !== 'published' && <button type="button" className="btn btn-secondary btn-sm" onClick={() => publish(item)}>Publish</button>}
-                            <Link to={`/admin/edit-news/${item._id}`} className="btn btn-secondary btn-sm" aria-label={`Edit ${item.title}`}><i className="bi bi-pencil" aria-hidden="true" /> Edit</Link>
-                            <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(item)} aria-label={`Delete ${item.title}`}><i className="bi bi-trash" aria-hidden="true" /></button>
-                          </>
-                        ) : <span className="muted">Admin only</span>}
-                      </td>
-                    </tr>
-                  );
-                })}
+                {data.news.map((a) => (
+                  <tr key={a._id}>
+                    <td data-label="Article">
+                      <Link className="cell-title" to={`/admin/edit-news/${a._id}`}>{a.title}</Link>
+                      <span className="meta">{a.author && a.author.name}{a.kind !== 'news' && ` · ${KIND_LABEL[a.kind]}`}{a.breaking ? ' · Breaking' : ''}</span>
+                    </td>
+                    <td data-label="Status"><StatusBadge status={a.status} />{a.assignedEditor && <span className="meta">Editor: {a.assignedEditor.name}</span>}</td>
+                    <td data-label="Section">{(byId(a.categoryId) || {}).name || '-'}</td>
+                    <td data-label="Views" className="num">{formatNumber(a.views)}</td>
+                    <td data-label="Updated">{formatDate(a.updatedAt)}</td>
+                    <td className="row-actions">
+                      <Link to={`/admin/edit-news/${a._id}`} className="btn btn-secondary btn-sm">Open<span className="visually-hidden"> {a.title}</span></Link>
+                      {isAdmin && <button type="button" className="btn btn-danger btn-sm" onClick={() => remove(a)}>Delete<span className="visually-hidden"> {a.title}</span></button>}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
         )}
         {data && <PaginationComponent page={page} pages={data.pages} onChange={setPage} />}
       </div>
+      <p className="muted small">Statuses: {STATUSES.map((s) => STATUS_LABEL[s]).join(' → ')}</p>
     </>
   );
 }

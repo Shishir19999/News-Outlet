@@ -7,9 +7,11 @@ import { useCategories } from '../../context/CategoriesContext';
 import PaginationComponent from '../layouts/PaginationComponent';
 import ArticleCard from '../ui/ArticleCard';
 import Breadcrumbs from '../ui/Breadcrumbs';
+import FollowButton from '../ui/FollowButton';
 import { Parallax, Reveal } from '../ui/Motion';
 import { CardGridSkeleton, EmptyState, ErrorState, BackHome } from '../ui/States';
 import { hueFor } from '../../lib/cover';
+import { DEMO, BASE_URL, API_URL } from '../../config/env';
 
 export default function CategoryComponent() {
   const { slug } = useParams();
@@ -34,6 +36,7 @@ export default function CategoryComponent() {
 
   const hue = category ? hueFor(category.name, slug) : 220;
   const data = list.data;
+  const feed = DEMO ? `${BASE_URL}rss/${slug}.xml` : `${API_URL}/rss/${slug}.xml`;
   return (
     <>
       <header className="category-header" style={{ '--cat-hue': hue }}>
@@ -43,15 +46,24 @@ export default function CategoryComponent() {
           <Breadcrumbs items={[{ label: 'Home', to: '/' }, { label: category ? category.name : '…' }]} />
           <h1 className="page-title">{category ? category.name : 'Loading…'}</h1>
           {category && <p className="lead">{category.description}</p>}
+          {category && (
+            <p className="header-actions-row">
+              <FollowButton kind="topic" id={category._id} label={category.name} />
+              <a className="btn btn-secondary btn-sm" href={feed}><i className="bi bi-rss" aria-hidden="true" /> RSS feed</a>
+            </p>
+          )}
         </Reveal>
       </header>
       <div className="container section">
         {list.error ? <ErrorState onRetry={list.reload} /> : !data ? <CardGridSkeleton count={6} /> : data.news.length === 0 ? (
           <EmptyState icon="bi-newspaper" title="No stories in this section yet">Check back soon.</EmptyState>
         ) : (
-          <div className="grid grid-3">
-            {data.news.map((a) => <ArticleCard key={a._id} article={a} category={byId(a.categoryId)} />)}
-          </div>
+          <>
+            <h2 className="visually-hidden">Stories</h2>
+            <div className="grid grid-3">
+              {data.news.map((a) => <ArticleCard key={a._id} article={a} category={byId(a.categoryId)} />)}
+            </div>
+          </>
         )}
         {data && <PaginationComponent page={page} pages={data.pages} onChange={(p) => { setPageState({ slug, page: p }); window.scrollTo({ top: 0 }); }} />}
       </div>

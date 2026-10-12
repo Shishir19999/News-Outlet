@@ -1,43 +1,6 @@
-// Small, dependency-free text helpers (pure functions, unit tested).
-
-export function slugify(input) {
-  return String(input || '')
-    .normalize('NFKD')
-    .replace(/[̀-ͯ]/g, '')
-    .toLowerCase()
-    .replace(/&/g, ' and ')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
-
-// Plain text of a markdown string (used for word counts, excerpts and search).
-export function stripMarkdown(src) {
-  return String(src || '')
-    .replace(/```[\s\S]*?```/g, ' ')
-    .replace(/!\[([^\]]*)\]\([^)]*\)/g, '$1')
-    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
-    .replace(/^\s{0,3}(#{1,6}|>|[-*+]|\d+\.)\s+/gm, '')
-    .replace(/[*_`~]/g, '')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-export function wordCount(src) {
-  const text = stripMarkdown(src);
-  return text ? text.split(' ').length : 0;
-}
-
-// Minutes to read at ~200 words per minute, never less than one.
-export function readingTime(src, wpm = 200) {
-  return Math.max(1, Math.ceil(wordCount(src) / wpm));
-}
-
-export function excerpt(src, max = 160) {
-  const text = stripMarkdown(src);
-  if (text.length <= max) return text;
-  const cut = text.slice(0, max);
-  return `${cut.slice(0, Math.max(cut.lastIndexOf(' '), 40)).trim()}…`;
-}
+// Small, dependency-free text helpers (pure functions, unit tested). Rules that the server also
+// applies (slugs, reading time, who is live) come from the shared module.
+export { slugify, stripMarkdown, wordCount, readingTime, excerpt, isLive, effectiveStatus } from '../shared/rules.js';
 
 const escapeRe = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
@@ -107,17 +70,8 @@ export function fromLocalInput(value) {
   return Number.isNaN(d.getTime()) ? '' : d.toISOString();
 }
 
-// An article is live when it is published, or scheduled for a time that has passed.
-export function isLive(article, now = Date.now()) {
-  if (!article) return false;
-  if (article.status === 'draft') return false;
-  if (article.status === 'scheduled') return new Date(article.publishedAt).getTime() <= now;
-  return true;
-}
-
-// The label shown for an article's state in admin lists.
-export function statusOf(article, now = Date.now()) {
-  if (article.status === 'draft') return 'draft';
-  if (article.status === 'scheduled') return new Date(article.publishedAt).getTime() <= now ? 'published' : 'scheduled';
-  return 'published';
+// "2026-09" -> "September 2026"
+export function monthLabel(key) {
+  const [y, m] = String(key).split('-').map(Number);
+  return new Intl.DateTimeFormat('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(Date.UTC(y, m - 1, 1)));
 }

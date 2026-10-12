@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { errorMessage } from '../../config/API';
 import { DEMO } from '../../config/env';
-import { DEMO_ADMIN, DEMO_USER } from '../../demo/seed';
+import { DEMO_LOGINS } from '../../demo/seed';
 import { useAuth } from '../../context/AuthContext';
 import useSeo from '../../hooks/useSeo';
-
-const LOGINS = [['Administrator', DEMO_ADMIN], ['Reader', DEMO_USER]];
 
 export default function LoginComponent() {
   useSeo({ title: 'Sign in' });
@@ -54,12 +52,12 @@ export default function LoginComponent() {
         <button type="submit" className="btn btn-primary btn-block" disabled={busy}>{busy ? 'Signing in…' : 'Sign in'}</button>
         <p className="form-foot">No account yet? <Link to="/register">Create one</Link></p>
         {DEMO && (
-          <div className="demo-logins" aria-label="Demo logins">
-            <h2>Demo logins</h2>
-            <p>Pick an account to fill in the form. These accounts only exist in this browser.</p>
-            {LOGINS.map(([label, c]) => (
-              <button type="button" key={label} className="demo-login" onClick={() => setValues({ email: c.email, password: c.password })}>
-                <strong>{label}</strong>
+          <div className="demo-logins" role="group" aria-label="Sample logins">
+            <h2>Sample logins</h2>
+            <p>Pick a role to fill in the form. These accounts only exist in this browser.</p>
+            {DEMO_LOGINS.map((c) => (
+              <button type="button" key={c.role} className="demo-login" onClick={() => setValues({ email: c.email, password: c.password })}>
+                <strong>{c.label}</strong>
                 <span>{c.email} / {c.password}</span>
               </button>
             ))}
