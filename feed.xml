@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>News Outlet</title>
+    <link>https://shishir19999.github.io/News-Outlet</link>
+    <description>Independent reporting on technology, business, science, sports, culture and the world.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Oct 2026 08:30:03 GMT</lastBuildDate>
+    <atom:link href="https://shishir19999.github.io/News-Outlet/feed.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Live: Storm Marlo reaches the coast</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/</guid>
+      <pubDate>Mon, 12 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>storm</category>
+      <category>weather</category>
+      <category>flooding</category>
+      <description>Follow the latest on flooding, ferry cancellations and road closures as the storm moves across the bay.</description>
+    </item>
+    <item>
+      <title>City council approves open data portal for public transit</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/city-council-approves-open-data-portal-for-public-transit/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/city-council-approves-open-data-portal-for-public-transit/</guid>
+      <pubDate>Sun, 11 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Technology</category>
+      <category>transport</category>
+      <category>open-data</category>
+      <category>council</category>
+      <description>Bus and tram timetables, delays and ridership figures will be published as open data starting next quarter.</description>
+    </item>
+    <item>
+      <title>Analysis: What the open data portal could change for riders</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/analysis-what-the-open-data-portal-could-change-for-riders/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/analysis-what-the-open-data-portal-could-change-for-riders/</guid>
+      <pubDate>Sun, 11 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Technology</category>
+      <category>transport</category>
+      <category>open-data</category>
+      <category>analysis</category>
+      <description>Open timetables and delay records are only useful if someone builds on them. Here is what to watch in the first year.</description>
+    </item>
+    <item>
+      <title>Opinion: Free bus fares would pay for themselves</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/opinion-free-bus-fares-would-pay-for-themselves/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/opinion-free-bus-fares-would-pay-for-themselves/</guid>
+      <pubDate>Sat, 10 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Business</category>
+      <category>transport</category>
+      <category>buses</category>
+      <category>opinion</category>
+      <description>Cheaper, fuller buses mean fewer cars downtown. A columnist argues the council should run the numbers properly.</description>
+    </item>
+    <item>
+      <title>Photo essay: a morning at the riverside market</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/</guid>
+      <pubDate>Sat, 10 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>market</category>
+      <category>photography</category>
+      <category>riverside</category>
+      <description>Six pictures from the first hour of trading, when the stalls are set up and the light is still low.</description>
+    </item>
+    <item>
+      <title>Watch: the restored marsh from above</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/</guid>
+      <pubDate>Sat, 10 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Science</category>
+      <category>wetland</category>
+      <category>video</category>
+      <category>birds</category>
+      <description>A drone flight over the Harborview wetland shows how the channels and bird islands have taken shape.</description>
+    </item>
+    <item>
+      <title>Coastal wetland restoration shows early signs of recovery</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/</guid>
+      <pubDate>Sat, 10 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>coastal</category>
+      <category>wetland</category>
+      <category>restoration</category>
+      <description>Two years after the project began, bird counts and water quality readings at Harborview Marsh are both improving.</description>
+    </item>
+    <item>
+      <title>Fact check: did the city marathon really double in size?</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/fact-check-did-the-city-marathon-really-double-in-size/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/fact-check-did-the-city-marathon-really-double-in-size/</guid>
+      <pubDate>Fri, 09 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Sports</category>
+      <category>marathon</category>
+      <category>fact-check</category>
+      <description>A viral post says this year&apos;s race is twice as big as last year&apos;s. The registration records tell a different story.</description>
+    </item>
+    <item>
+      <title>Riverton Rovers clinch the league title on the final day</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/riverton-rovers-clinch-the-league-title-on-the-final-day/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/riverton-rovers-clinch-the-league-title-on-the-final-day/</guid>
+      <pubDate>Fri, 09 Oct 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Sports</category>
+      <category>riverton</category>
+      <category>rovers</category>
+      <category>clinch</category>
+      <description>A late goal in front of a sold-out crowd secured the first championship in the club&apos;s forty-year history.</description>
+    </item>
+    <item>
+      <title>Sponsored: saving for a first workshop, step by step</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/sponsored-saving-for-a-first-workshop-step-by-step/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/sponsored-saving-for-a-first-workshop-step-by-step/</guid>
+      <pubDate>Thu, 08 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Business</category>
+      <category>savings</category>
+      <category>small-business</category>
+      <description>A guide from Harbor Cooperative Bank on setting aside small monthly amounts for a first business premises.</description>
+    </item>
+    <item>
+      <title>Ferry service to the northern islands resumes after winter break</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/</guid>
+      <pubDate>Thu, 08 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>World</category>
+      <category>ferry</category>
+      <category>service</category>
+      <category>northern</category>
+      <description>Daily crossings restart this week with a newer vessel and a cheaper fare for islanders.</description>
+    </item>
+    <item>
+      <title>Small bakeries band together to share a delivery fleet</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/small-bakeries-band-together-to-share-a-delivery-fleet/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/small-bakeries-band-together-to-share-a-delivery-fleet/</guid>
+      <pubDate>Thu, 08 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Business</category>
+      <category>small</category>
+      <category>bakeries</category>
+      <category>together</category>
+      <description>Eleven independent bakeries in the old town now pool vans and drivers, cutting costs and morning traffic.</description>
+    </item>
+    <item>
+      <title>Open-source maps project reaches one million contributors</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/open-source-maps-project-reaches-one-million-contributors/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/open-source-maps-project-reaches-one-million-contributors/</guid>
+      <pubDate>Wed, 07 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Technology</category>
+      <category>source</category>
+      <category>project</category>
+      <category>reaches</category>
+      <description>Volunteers have traced roads, footpaths and flood channels in regions that commercial maps ignore.</description>
+    </item>
+    <item>
+      <title>Debut novel about a lighthouse keeper tops the bestseller list</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/</guid>
+      <pubDate>Wed, 07 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>debut</category>
+      <category>novel</category>
+      <category>lighthouse</category>
+      <description>Nora Whitfield&apos;s first book has sold out two print runs in three weeks and is heading for a third.</description>
+    </item>
+    <item>
+      <title>Students build a low-cost air quality sensor network</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/students-build-a-low-cost-air-quality-sensor-network/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/students-build-a-low-cost-air-quality-sensor-network/</guid>
+      <pubDate>Tue, 06 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Technology</category>
+      <category>students</category>
+      <category>build</category>
+      <category>quality</category>
+      <description>A university lab has placed forty solar-powered sensors across the city and published the readings for everyone.</description>
+    </item>
+    <item>
+      <title>Neighbouring towns open a shared border market</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/</guid>
+      <pubDate>Tue, 06 Oct 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>World</category>
+      <category>neighbouring</category>
+      <category>towns</category>
+      <category>shared</category>
+      <description>Traders from both sides of the river can now sell under one roof, with a single set of rules.</description>
+    </item>
+    <item>
+      <title>Regional leaders agree to simplify cross-border rail freight</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/</guid>
+      <pubDate>Mon, 05 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>regional</category>
+      <category>leaders</category>
+      <category>agree</category>
+      <description>A common electronic form will replace paper paperwork at six border crossings.</description>
+    </item>
+    <item>
+      <title>Regional bank launches fee-free accounts for under-25s</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/regional-bank-launches-fee-free-accounts-for-under-25s/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/regional-bank-launches-fee-free-accounts-for-under-25s/</guid>
+      <pubDate>Mon, 05 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Business</category>
+      <category>regional</category>
+      <category>launches</category>
+      <category>accounts</category>
+      <description>The accounts come with no monthly charge and a free overdraft buffer of 100.</description>
+    </item>
+    <item>
+      <title>Night-sky survey finds hundreds of previously uncatalogued asteroids</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/</guid>
+      <pubDate>Sun, 04 Oct 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>night</category>
+      <category>survey</category>
+      <category>finds</category>
+      <description>Amateur astronomers and a university team combined their images to spot objects too faint for earlier surveys.</description>
+    </item>
+    <item>
+      <title>Volunteers log record numbers of pollinators in a city-wide count</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/</guid>
+      <pubDate>Sun, 04 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Science</category>
+      <category>volunteers</category>
+      <category>record</category>
+      <category>numbers</category>
+      <description>Bees, hoverflies and moths were spotted in parks, balconies and even rooftops.</description>
+    </item>
+    <item>
+      <title>Marathon draws record field as organisers add a wheelchair division</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/marathon-draws-record-field-as-organisers-add-a-wheelchair-division/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/marathon-draws-record-field-as-organisers-add-a-wheelchair-division/</guid>
+      <pubDate>Sat, 03 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Sports</category>
+      <category>marathon</category>
+      <category>draws</category>
+      <category>record</category>
+      <description>More than nine thousand runners registered for this year&apos;s city marathon, the largest field since it began.</description>
+    </item>
+    <item>
+      <title>A small team ports a classic text adventure to the browser</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/a-small-team-ports-a-classic-text-adventure-to-the-browser/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/a-small-team-ports-a-classic-text-adventure-to-the-browser/</guid>
+      <pubDate>Sat, 03 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Technology</category>
+      <category>small</category>
+      <category>ports</category>
+      <category>classic</category>
+      <description>The remake keeps the original puzzles but adds screen reader support and saved games.</description>
+    </item>
+    <item>
+      <title>New study links evening light to how children sleep</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/</guid>
+      <pubDate>Fri, 02 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>study</category>
+      <category>links</category>
+      <category>evening</category>
+      <description>Dimming screens and lamps an hour before bed shortened the time it took to fall asleep.</description>
+    </item>
+    <item>
+      <title>Local manufacturer cuts energy use by a third with heat recovery</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/local-manufacturer-cuts-energy-use-by-a-third-with-heat-recovery/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/local-manufacturer-cuts-energy-use-by-a-third-with-heat-recovery/</guid>
+      <pubDate>Fri, 02 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Business</category>
+      <category>manufacturer</category>
+      <category>energy</category>
+      <category>third</category>
+      <description>A metal parts factory now reuses waste heat to warm its buildings and process water.</description>
+    </item>
+    <item>
+      <title>Why your phone suggests the same three apps every morning</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/why-your-phone-suggests-the-same-three-apps-every-morning/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/why-your-phone-suggests-the-same-three-apps-every-morning/</guid>
+      <pubDate>Thu, 01 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Technology</category>
+      <category>phone</category>
+      <category>suggests</category>
+      <category>three</category>
+      <description>A short explainer on how on-device prediction works, and how to turn it off.</description>
+    </item>
+    <item>
+      <title>Annual book fair opens with a focus on local writers</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/</guid>
+      <pubDate>Wed, 30 Sep 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>annual</category>
+      <category>opens</category>
+      <category>focus</category>
+      <description>Fifty publishers and more than a hundred authors are taking part in the week-long fair downtown.</description>
+    </item>
+    <item>
+      <title>Town centre vacancies fall for the third quarter in a row</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/town-centre-vacancies-fall-for-the-third-quarter-in-a-row/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/town-centre-vacancies-fall-for-the-third-quarter-in-a-row/</guid>
+      <pubDate>Wed, 30 Sep 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Business</category>
+      <category>centre</category>
+      <category>vacancies</category>
+      <category>third</category>
+      <description>Pop-up shops, craft studios and a new food hall have filled a quarter of the empty units.</description>
+    </item>
+    <item>
+      <title>Wheelchair basketball club celebrates a decade of open sessions</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/wheelchair-basketball-club-celebrates-a-decade-of-open-sessions/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/wheelchair-basketball-club-celebrates-a-decade-of-open-sessions/</guid>
+      <pubDate>Tue, 29 Sep 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Sports</category>
+      <category>wheelchair</category>
+      <category>basketball</category>
+      <category>celebrates</category>
+      <description>The weekly drop-in nights have introduced hundreds of newcomers to the sport.</description>
+    </item>
+    <item>
+      <title>Library lends out repair kits and teaches basic electronics</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/library-lends-out-repair-kits-and-teaches-basic-electronics/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/library-lends-out-repair-kits-and-teaches-basic-electronics/</guid>
+      <pubDate>Mon, 28 Sep 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Technology</category>
+      <category>library</category>
+      <category>lends</category>
+      <category>repair</category>
+      <description>The central library&apos;s new maker corner lets residents borrow soldering irons, multimeters and sewing machines.</description>
+    </item>
+    <item>
+      <title>Farmers share a cold store to cut food waste</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/farmers-share-a-cold-store-to-cut-food-waste/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/farmers-share-a-cold-store-to-cut-food-waste/</guid>
+      <pubDate>Mon, 28 Sep 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Business</category>
+      <category>farmers</category>
+      <category>share</category>
+      <category>store</category>
+      <description>Seven growers pooled funds for a refrigerated warehouse that keeps berries fresh for an extra week.</description>
+    </item>
+  </channel>
+</rss>

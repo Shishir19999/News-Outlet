@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>News Outlet: Sports</title>
+  <subtitle>Independent reporting on technology, business, science, sports, culture and the world.</subtitle>
+  <link href="https://shishir19999.github.io/News-Outlet/atom/sports.xml" rel="self"/>
+  <link href="https://shishir19999.github.io/News-Outlet/#/category/sports"/>
+  <id>https://shishir19999.github.io/News-Outlet/atom/sports.xml</id>
+  <updated>2026-10-09T11:30:03.209Z</updated>
+  <entry>
+    <title>Fact check: did the city marathon really double in size?</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/fact-check-did-the-city-marathon-really-double-in-size/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/fact-check-did-the-city-marathon-really-double-in-size/</id>
+    <published>2026-10-09T11:30:03.209Z</published>
+    <updated>2026-10-09T11:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Sports"/>
+    <summary>A viral post says this year&apos;s race is twice as big as last year&apos;s. The registration records tell a different story.</summary>
+  </entry>
+  <entry>
+    <title>Riverton Rovers clinch the league title on the final day</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/riverton-rovers-clinch-the-league-title-on-the-final-day/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/riverton-rovers-clinch-the-league-title-on-the-final-day/</id>
+    <published>2026-10-09T09:30:03.209Z</published>
+    <updated>2026-10-09T09:30:03.209Z</updated>
+    <author><name>Casey Lin</name></author>
+    <category term="Sports"/>
+    <summary>A late goal in front of a sold-out crowd secured the first championship in the club&apos;s forty-year history.</summary>
+  </entry>
+  <entry>
+    <title>Marathon draws record field as organisers add a wheelchair division</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/marathon-draws-record-field-as-organisers-add-a-wheelchair-division/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/marathon-draws-record-field-as-organisers-add-a-wheelchair-division/</id>
+    <published>2026-10-03T08:30:03.209Z</published>
+    <updated>2026-10-03T08:30:03.209Z</updated>
+    <author><name>Casey Lin</name></author>
+    <category term="Sports"/>
+    <summary>More than nine thousand runners registered for this year&apos;s city marathon, the largest field since it began.</summary>
+  </entry>
+  <entry>
+    <title>Wheelchair basketball club celebrates a decade of open sessions</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/wheelchair-basketball-club-celebrates-a-decade-of-open-sessions/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/wheelchair-basketball-club-celebrates-a-decade-of-open-sessions/</id>
+    <published>2026-09-29T10:30:03.209Z</published>
+    <updated>2026-09-29T10:30:03.209Z</updated>
+    <author><name>Casey Lin</name></author>
+    <category term="Sports"/>
+    <summary>The weekly drop-in nights have introduced hundreds of newcomers to the sport.</summary>
+  </entry>
+  <entry>
+    <title>Teenage climber sets a new national record on the indoor wall</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/teenage-climber-sets-a-new-national-record-on-the-indoor-wall/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/teenage-climber-sets-a-new-national-record-on-the-indoor-wall/</id>
+    <published>2026-09-27T09:30:03.209Z</published>
+    <updated>2026-09-27T09:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Sports"/>
+    <summary>At sixteen, Mei Tanaka finished the speed route in under seven seconds.</summary>
+  </entry>
+  <entry>
+    <title>Youth swimming league adds evening sessions for working parents</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/youth-swimming-league-adds-evening-sessions-for-working-parents/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/youth-swimming-league-adds-evening-sessions-for-working-parents/</id>
+    <published>2026-09-20T07:30:03.209Z</published>
+    <updated>2026-09-20T07:30:03.209Z</updated>
+    <author><name>Casey Lin</name></author>
+    <category term="Sports"/>
+    <summary>New Thursday evening training slots aim to make the sport easier to join for families with tight schedules.</summary>
+  </entry>
+</feed>

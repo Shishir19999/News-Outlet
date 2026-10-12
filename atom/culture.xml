@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>News Outlet: Culture</title>
+  <subtitle>Independent reporting on technology, business, science, sports, culture and the world.</subtitle>
+  <link href="https://shishir19999.github.io/News-Outlet/atom/culture.xml" rel="self"/>
+  <link href="https://shishir19999.github.io/News-Outlet/#/category/culture"/>
+  <id>https://shishir19999.github.io/News-Outlet/atom/culture.xml</id>
+  <updated>2026-10-10T11:30:03.209Z</updated>
+  <entry>
+    <title>Photo essay: a morning at the riverside market</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/</id>
+    <published>2026-10-10T11:30:03.209Z</published>
+    <updated>2026-10-10T11:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Culture"/>
+    <summary>Six pictures from the first hour of trading, when the stalls are set up and the light is still low.</summary>
+  </entry>
+  <entry>
+    <title>Debut novel about a lighthouse keeper tops the bestseller list</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/</id>
+    <published>2026-10-07T07:30:03.209Z</published>
+    <updated>2026-10-07T07:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Culture"/>
+    <summary>Nora Whitfield&apos;s first book has sold out two print runs in three weeks and is heading for a third.</summary>
+  </entry>
+  <entry>
+    <title>Annual book fair opens with a focus on local writers</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/</id>
+    <published>2026-09-30T11:30:03.209Z</published>
+    <updated>2026-09-30T11:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Culture"/>
+    <summary>Fifty publishers and more than a hundred authors are taking part in the week-long fair downtown.</summary>
+  </entry>
+  <entry>
+    <title>Street food festival brings twenty-six kitchens to the old docks</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/street-food-festival-brings-twenty-six-kitchens-to-the-old-docks/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/street-food-festival-brings-twenty-six-kitchens-to-the-old-docks/</id>
+    <published>2026-09-26T08:30:03.209Z</published>
+    <updated>2026-09-26T08:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Culture"/>
+    <summary>Dishes from eleven regions, plus a late-night cinema screening on the quayside.</summary>
+  </entry>
+  <entry>
+    <title>Community choir records its first album in a converted chapel</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/community-choir-records-its-first-album-in-a-converted-chapel/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/community-choir-records-its-first-album-in-a-converted-chapel/</id>
+    <published>2026-09-24T07:30:03.209Z</published>
+    <updated>2026-09-24T07:30:03.209Z</updated>
+    <author><name>Alex Morgan</name></author>
+    <category term="Culture"/>
+    <summary>Sixty singers aged nine to eighty-four share one microphone setup and a lot of tea.</summary>
+  </entry>
+</feed>

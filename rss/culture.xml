@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>News Outlet: Culture</title>
+    <link>https://shishir19999.github.io/News-Outlet/#/category/culture</link>
+    <description>Independent reporting on technology, business, science, sports, culture and the world.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 10 Oct 2026 11:30:03 GMT</lastBuildDate>
+    <atom:link href="https://shishir19999.github.io/News-Outlet/rss/culture.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Photo essay: a morning at the riverside market</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/photo-essay-a-morning-at-the-riverside-market/</guid>
+      <pubDate>Sat, 10 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>market</category>
+      <category>photography</category>
+      <category>riverside</category>
+      <description>Six pictures from the first hour of trading, when the stalls are set up and the light is still low.</description>
+    </item>
+    <item>
+      <title>Debut novel about a lighthouse keeper tops the bestseller list</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/debut-novel-about-a-lighthouse-keeper-tops-the-bestseller-list/</guid>
+      <pubDate>Wed, 07 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>debut</category>
+      <category>novel</category>
+      <category>lighthouse</category>
+      <description>Nora Whitfield&apos;s first book has sold out two print runs in three weeks and is heading for a third.</description>
+    </item>
+    <item>
+      <title>Annual book fair opens with a focus on local writers</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/annual-book-fair-opens-with-a-focus-on-local-writers/</guid>
+      <pubDate>Wed, 30 Sep 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>annual</category>
+      <category>opens</category>
+      <category>focus</category>
+      <description>Fifty publishers and more than a hundred authors are taking part in the week-long fair downtown.</description>
+    </item>
+    <item>
+      <title>Street food festival brings twenty-six kitchens to the old docks</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/street-food-festival-brings-twenty-six-kitchens-to-the-old-docks/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/street-food-festival-brings-twenty-six-kitchens-to-the-old-docks/</guid>
+      <pubDate>Sat, 26 Sep 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Culture</category>
+      <category>street</category>
+      <category>festival</category>
+      <category>brings</category>
+      <description>Dishes from eleven regions, plus a late-night cinema screening on the quayside.</description>
+    </item>
+    <item>
+      <title>Community choir records its first album in a converted chapel</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/community-choir-records-its-first-album-in-a-converted-chapel/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/community-choir-records-its-first-album-in-a-converted-chapel/</guid>
+      <pubDate>Thu, 24 Sep 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Culture</category>
+      <category>community</category>
+      <category>choir</category>
+      <category>records</category>
+      <description>Sixty singers aged nine to eighty-four share one microphone setup and a lot of tea.</description>
+    </item>
+  </channel>
+</rss>

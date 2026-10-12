@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>News Outlet: Science</title>
+  <subtitle>Independent reporting on technology, business, science, sports, culture and the world.</subtitle>
+  <link href="https://shishir19999.github.io/News-Outlet/atom/science.xml" rel="self"/>
+  <link href="https://shishir19999.github.io/News-Outlet/#/category/science"/>
+  <id>https://shishir19999.github.io/News-Outlet/atom/science.xml</id>
+  <updated>2026-10-10T11:30:03.209Z</updated>
+  <entry>
+    <title>Watch: the restored marsh from above</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/</id>
+    <published>2026-10-10T11:30:03.209Z</published>
+    <updated>2026-10-10T11:30:03.209Z</updated>
+    <author><name>Casey Lin</name></author>
+    <category term="Science"/>
+    <summary>A drone flight over the Harborview wetland shows how the channels and bird islands have taken shape.</summary>
+  </entry>
+  <entry>
+    <title>Coastal wetland restoration shows early signs of recovery</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/</id>
+    <published>2026-10-10T10:30:03.209Z</published>
+    <updated>2026-10-10T10:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Science"/>
+    <summary>Two years after the project began, bird counts and water quality readings at Harborview Marsh are both improving.</summary>
+  </entry>
+  <entry>
+    <title>Night-sky survey finds hundreds of previously uncatalogued asteroids</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/</id>
+    <published>2026-10-04T09:30:03.209Z</published>
+    <updated>2026-10-04T09:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Science"/>
+    <summary>Amateur astronomers and a university team combined their images to spot objects too faint for earlier surveys.</summary>
+  </entry>
+  <entry>
+    <title>Volunteers log record numbers of pollinators in a city-wide count</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/</id>
+    <published>2026-10-04T07:30:03.209Z</published>
+    <updated>2026-10-04T07:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Science"/>
+    <summary>Bees, hoverflies and moths were spotted in parks, balconies and even rooftops.</summary>
+  </entry>
+  <entry>
+    <title>New study links evening light to how children sleep</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/</id>
+    <published>2026-10-02T11:30:03.209Z</published>
+    <updated>2026-10-02T11:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Science"/>
+    <summary>Dimming screens and lamps an hour before bed shortened the time it took to fall asleep.</summary>
+  </entry>
+  <entry>
+    <title>Heat pumps for apartment blocks: what a two-year trial found</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/heat-pumps-for-apartment-blocks-what-a-two-year-trial-found/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/heat-pumps-for-apartment-blocks-what-a-two-year-trial-found/</id>
+    <published>2026-09-23T08:30:03.209Z</published>
+    <updated>2026-09-23T08:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Science"/>
+    <summary>Residents of a retrofitted block report quieter, steadier heating and lower bills.</summary>
+  </entry>
+</feed>

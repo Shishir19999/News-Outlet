@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>News Outlet: World</title>
+  <subtitle>Independent reporting on technology, business, science, sports, culture and the world.</subtitle>
+  <link href="https://shishir19999.github.io/News-Outlet/atom/world.xml" rel="self"/>
+  <link href="https://shishir19999.github.io/News-Outlet/#/category/world"/>
+  <id>https://shishir19999.github.io/News-Outlet/atom/world.xml</id>
+  <updated>2026-10-12T08:30:03.209Z</updated>
+  <entry>
+    <title>Live: Storm Marlo reaches the coast</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/</id>
+    <published>2026-10-12T08:30:03.209Z</published>
+    <updated>2026-10-12T08:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="World"/>
+    <summary>Follow the latest on flooding, ferry cancellations and road closures as the storm moves across the bay.</summary>
+  </entry>
+  <entry>
+    <title>Ferry service to the northern islands resumes after winter break</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/</id>
+    <published>2026-10-08T10:30:03.209Z</published>
+    <updated>2026-10-08T10:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="World"/>
+    <summary>Daily crossings restart this week with a newer vessel and a cheaper fare for islanders.</summary>
+  </entry>
+  <entry>
+    <title>Neighbouring towns open a shared border market</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/</id>
+    <published>2026-10-06T09:30:03.209Z</published>
+    <updated>2026-10-06T09:30:03.209Z</updated>
+    <author><name>Alex Morgan</name></author>
+    <category term="World"/>
+    <summary>Traders from both sides of the river can now sell under one roof, with a single set of rules.</summary>
+  </entry>
+  <entry>
+    <title>Regional leaders agree to simplify cross-border rail freight</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/</id>
+    <published>2026-10-05T10:30:03.209Z</published>
+    <updated>2026-10-05T10:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="World"/>
+    <summary>A common electronic form will replace paper paperwork at six border crossings.</summary>
+  </entry>
+  <entry>
+    <title>Harvest festival returns to the highland villages</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/harvest-festival-returns-to-the-highland-villages/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/harvest-festival-returns-to-the-highland-villages/</id>
+    <published>2026-09-26T09:30:03.209Z</published>
+    <updated>2026-09-26T09:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="World"/>
+    <summary>After a two-year pause, farmers and visitors gather for music, market stalls and the traditional cheese race.</summary>
+  </entry>
+  <entry>
+    <title>Cycling highway links three cities without a single traffic light</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/cycling-highway-links-three-cities-without-a-single-traffic-light/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/cycling-highway-links-three-cities-without-a-single-traffic-light/</id>
+    <published>2026-09-22T11:30:03.209Z</published>
+    <updated>2026-09-22T11:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="World"/>
+    <summary>The 42 km route opened on Sunday, with rest stops, repair stations and night lighting.</summary>
+  </entry>
+</feed>

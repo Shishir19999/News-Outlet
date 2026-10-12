@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>News Outlet: Science</title>
+    <link>https://shishir19999.github.io/News-Outlet/#/category/science</link>
+    <description>Independent reporting on technology, business, science, sports, culture and the world.</description>
+    <language>en</language>
+    <lastBuildDate>Sat, 10 Oct 2026 11:30:03 GMT</lastBuildDate>
+    <atom:link href="https://shishir19999.github.io/News-Outlet/rss/science.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Watch: the restored marsh from above</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/watch-the-restored-marsh-from-above/</guid>
+      <pubDate>Sat, 10 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Science</category>
+      <category>wetland</category>
+      <category>video</category>
+      <category>birds</category>
+      <description>A drone flight over the Harborview wetland shows how the channels and bird islands have taken shape.</description>
+    </item>
+    <item>
+      <title>Coastal wetland restoration shows early signs of recovery</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/coastal-wetland-restoration-shows-early-signs-of-recovery/</guid>
+      <pubDate>Sat, 10 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>coastal</category>
+      <category>wetland</category>
+      <category>restoration</category>
+      <description>Two years after the project began, bird counts and water quality readings at Harborview Marsh are both improving.</description>
+    </item>
+    <item>
+      <title>Night-sky survey finds hundreds of previously uncatalogued asteroids</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/night-sky-survey-finds-hundreds-of-previously-uncatalogued-asteroids/</guid>
+      <pubDate>Sun, 04 Oct 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>night</category>
+      <category>survey</category>
+      <category>finds</category>
+      <description>Amateur astronomers and a university team combined their images to spot objects too faint for earlier surveys.</description>
+    </item>
+    <item>
+      <title>Volunteers log record numbers of pollinators in a city-wide count</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/volunteers-log-record-numbers-of-pollinators-in-a-city-wide-count/</guid>
+      <pubDate>Sun, 04 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Science</category>
+      <category>volunteers</category>
+      <category>record</category>
+      <category>numbers</category>
+      <description>Bees, hoverflies and moths were spotted in parks, balconies and even rooftops.</description>
+    </item>
+    <item>
+      <title>New study links evening light to how children sleep</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/new-study-links-evening-light-to-how-children-sleep/</guid>
+      <pubDate>Fri, 02 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>study</category>
+      <category>links</category>
+      <category>evening</category>
+      <description>Dimming screens and lamps an hour before bed shortened the time it took to fall asleep.</description>
+    </item>
+    <item>
+      <title>Heat pumps for apartment blocks: what a two-year trial found</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/heat-pumps-for-apartment-blocks-what-a-two-year-trial-found/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/heat-pumps-for-apartment-blocks-what-a-two-year-trial-found/</guid>
+      <pubDate>Wed, 23 Sep 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Science</category>
+      <category>pumps</category>
+      <category>apartment</category>
+      <category>blocks</category>
+      <description>Residents of a retrofitted block report quieter, steadier heating and lower bills.</description>
+    </item>
+  </channel>
+</rss>

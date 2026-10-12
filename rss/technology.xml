@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>News Outlet: Technology</title>
+    <link>https://shishir19999.github.io/News-Outlet/#/category/technology</link>
+    <description>Independent reporting on technology, business, science, sports, culture and the world.</description>
+    <language>en</language>
+    <lastBuildDate>Sun, 11 Oct 2026 11:30:03 GMT</lastBuildDate>
+    <atom:link href="https://shishir19999.github.io/News-Outlet/rss/technology.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>City council approves open data portal for public transit</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/city-council-approves-open-data-portal-for-public-transit/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/city-council-approves-open-data-portal-for-public-transit/</guid>
+      <pubDate>Sun, 11 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Technology</category>
+      <category>transport</category>
+      <category>open-data</category>
+      <category>council</category>
+      <description>Bus and tram timetables, delays and ridership figures will be published as open data starting next quarter.</description>
+    </item>
+    <item>
+      <title>Analysis: What the open data portal could change for riders</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/analysis-what-the-open-data-portal-could-change-for-riders/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/analysis-what-the-open-data-portal-could-change-for-riders/</guid>
+      <pubDate>Sun, 11 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Technology</category>
+      <category>transport</category>
+      <category>open-data</category>
+      <category>analysis</category>
+      <description>Open timetables and delay records are only useful if someone builds on them. Here is what to watch in the first year.</description>
+    </item>
+    <item>
+      <title>Open-source maps project reaches one million contributors</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/open-source-maps-project-reaches-one-million-contributors/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/open-source-maps-project-reaches-one-million-contributors/</guid>
+      <pubDate>Wed, 07 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>Technology</category>
+      <category>source</category>
+      <category>project</category>
+      <category>reaches</category>
+      <description>Volunteers have traced roads, footpaths and flood channels in regions that commercial maps ignore.</description>
+    </item>
+    <item>
+      <title>Students build a low-cost air quality sensor network</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/students-build-a-low-cost-air-quality-sensor-network/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/students-build-a-low-cost-air-quality-sensor-network/</guid>
+      <pubDate>Tue, 06 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Technology</category>
+      <category>students</category>
+      <category>build</category>
+      <category>quality</category>
+      <description>A university lab has placed forty solar-powered sensors across the city and published the readings for everyone.</description>
+    </item>
+    <item>
+      <title>A small team ports a classic text adventure to the browser</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/a-small-team-ports-a-classic-text-adventure-to-the-browser/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/a-small-team-ports-a-classic-text-adventure-to-the-browser/</guid>
+      <pubDate>Sat, 03 Oct 2026 07:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Technology</category>
+      <category>small</category>
+      <category>ports</category>
+      <category>classic</category>
+      <description>The remake keeps the original puzzles but adds screen reader support and saved games.</description>
+    </item>
+    <item>
+      <title>Why your phone suggests the same three apps every morning</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/why-your-phone-suggests-the-same-three-apps-every-morning/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/why-your-phone-suggests-the-same-three-apps-every-morning/</guid>
+      <pubDate>Thu, 01 Oct 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Casey Lin</dc:creator>
+      <category>Technology</category>
+      <category>phone</category>
+      <category>suggests</category>
+      <category>three</category>
+      <description>A short explainer on how on-device prediction works, and how to turn it off.</description>
+    </item>
+    <item>
+      <title>Library lends out repair kits and teaches basic electronics</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/library-lends-out-repair-kits-and-teaches-basic-electronics/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/library-lends-out-repair-kits-and-teaches-basic-electronics/</guid>
+      <pubDate>Mon, 28 Sep 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>Technology</category>
+      <category>library</category>
+      <category>lends</category>
+      <category>repair</category>
+      <description>The central library&apos;s new maker corner lets residents borrow soldering irons, multimeters and sewing machines.</description>
+    </item>
+    <item>
+      <title>Free coding evenings for retirees fill up within a day</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/free-coding-evenings-for-retirees-fill-up-within-a-day/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/free-coding-evenings-for-retirees-fill-up-within-a-day/</guid>
+      <pubDate>Sun, 20 Sep 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>Technology</category>
+      <category>coding</category>
+      <category>evenings</category>
+      <category>retirees</category>
+      <description>The library programme pairs volunteers with first-time programmers for relaxed two-hour sessions.</description>
+    </item>
+  </channel>
+</rss>

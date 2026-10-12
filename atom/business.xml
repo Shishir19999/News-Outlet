@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>News Outlet: Business</title>
+  <subtitle>Independent reporting on technology, business, science, sports, culture and the world.</subtitle>
+  <link href="https://shishir19999.github.io/News-Outlet/atom/business.xml" rel="self"/>
+  <link href="https://shishir19999.github.io/News-Outlet/#/category/business"/>
+  <id>https://shishir19999.github.io/News-Outlet/atom/business.xml</id>
+  <updated>2026-10-10T11:30:03.209Z</updated>
+  <entry>
+    <title>Opinion: Free bus fares would pay for themselves</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/opinion-free-bus-fares-would-pay-for-themselves/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/opinion-free-bus-fares-would-pay-for-themselves/</id>
+    <published>2026-10-10T11:30:03.209Z</published>
+    <updated>2026-10-10T11:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Business"/>
+    <summary>Cheaper, fuller buses mean fewer cars downtown. A columnist argues the council should run the numbers properly.</summary>
+  </entry>
+  <entry>
+    <title>Sponsored: saving for a first workshop, step by step</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/sponsored-saving-for-a-first-workshop-step-by-step/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/sponsored-saving-for-a-first-workshop-step-by-step/</id>
+    <published>2026-10-08T11:30:03.209Z</published>
+    <updated>2026-10-08T11:30:03.209Z</updated>
+    <author><name>Alex Morgan</name></author>
+    <category term="Business"/>
+    <summary>A guide from Harbor Cooperative Bank on setting aside small monthly amounts for a first business premises.</summary>
+  </entry>
+  <entry>
+    <title>Small bakeries band together to share a delivery fleet</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/small-bakeries-band-together-to-share-a-delivery-fleet/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/small-bakeries-band-together-to-share-a-delivery-fleet/</id>
+    <published>2026-10-08T08:30:03.209Z</published>
+    <updated>2026-10-08T08:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Business"/>
+    <summary>Eleven independent bakeries in the old town now pool vans and drivers, cutting costs and morning traffic.</summary>
+  </entry>
+  <entry>
+    <title>Regional bank launches fee-free accounts for under-25s</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/regional-bank-launches-fee-free-accounts-for-under-25s/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/regional-bank-launches-fee-free-accounts-for-under-25s/</id>
+    <published>2026-10-05T10:30:03.209Z</published>
+    <updated>2026-10-05T10:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Business"/>
+    <summary>The accounts come with no monthly charge and a free overdraft buffer of 100.</summary>
+  </entry>
+  <entry>
+    <title>Local manufacturer cuts energy use by a third with heat recovery</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/local-manufacturer-cuts-energy-use-by-a-third-with-heat-recovery/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/local-manufacturer-cuts-energy-use-by-a-third-with-heat-recovery/</id>
+    <published>2026-10-02T07:30:03.209Z</published>
+    <updated>2026-10-02T07:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Business"/>
+    <summary>A metal parts factory now reuses waste heat to warm its buildings and process water.</summary>
+  </entry>
+  <entry>
+    <title>Town centre vacancies fall for the third quarter in a row</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/town-centre-vacancies-fall-for-the-third-quarter-in-a-row/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/town-centre-vacancies-fall-for-the-third-quarter-in-a-row/</id>
+    <published>2026-09-30T09:30:03.209Z</published>
+    <updated>2026-09-30T09:30:03.209Z</updated>
+    <author><name>Eli Ford</name></author>
+    <category term="Business"/>
+    <summary>Pop-up shops, craft studios and a new food hall have filled a quarter of the empty units.</summary>
+  </entry>
+  <entry>
+    <title>Farmers share a cold store to cut food waste</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/farmers-share-a-cold-store-to-cut-food-waste/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/farmers-share-a-cold-store-to-cut-food-waste/</id>
+    <published>2026-09-28T08:30:03.209Z</published>
+    <updated>2026-09-28T08:30:03.209Z</updated>
+    <author><name>Alex Morgan</name></author>
+    <category term="Business"/>
+    <summary>Seven growers pooled funds for a refrigerated warehouse that keeps berries fresh for an extra week.</summary>
+  </entry>
+  <entry>
+    <title>Weekend market moves to the riverside after ten years downtown</title>
+    <link href="https://shishir19999.github.io/News-Outlet/a/weekend-market-moves-to-the-riverside-after-ten-years-downtown/"/>
+    <id>https://shishir19999.github.io/News-Outlet/a/weekend-market-moves-to-the-riverside-after-ten-years-downtown/</id>
+    <published>2026-09-17T11:30:03.209Z</published>
+    <updated>2026-09-17T11:30:03.209Z</updated>
+    <author><name>Dana Brooks</name></author>
+    <category term="Business"/>
+    <summary>Traders say the wider promenade will make room for more stalls and a covered food court.</summary>
+  </entry>
+</feed>

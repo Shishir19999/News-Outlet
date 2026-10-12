@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Sitemap: https://shishir19999.github.io/News-Outlet/sitemap.xml

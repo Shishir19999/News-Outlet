@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>News Outlet: World</title>
+    <link>https://shishir19999.github.io/News-Outlet/#/category/world</link>
+    <description>Independent reporting on technology, business, science, sports, culture and the world.</description>
+    <language>en</language>
+    <lastBuildDate>Mon, 12 Oct 2026 08:30:03 GMT</lastBuildDate>
+    <atom:link href="https://shishir19999.github.io/News-Outlet/rss/world.xml" rel="self" type="application/rss+xml"/>
+    <item>
+      <title>Live: Storm Marlo reaches the coast</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/live-storm-marlo-reaches-the-coast/</guid>
+      <pubDate>Mon, 12 Oct 2026 08:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>storm</category>
+      <category>weather</category>
+      <category>flooding</category>
+      <description>Follow the latest on flooding, ferry cancellations and road closures as the storm moves across the bay.</description>
+    </item>
+    <item>
+      <title>Ferry service to the northern islands resumes after winter break</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/ferry-service-to-the-northern-islands-resumes-after-winter-break/</guid>
+      <pubDate>Thu, 08 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Eli Ford</dc:creator>
+      <category>World</category>
+      <category>ferry</category>
+      <category>service</category>
+      <category>northern</category>
+      <description>Daily crossings restart this week with a newer vessel and a cheaper fare for islanders.</description>
+    </item>
+    <item>
+      <title>Neighbouring towns open a shared border market</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/neighbouring-towns-open-a-shared-border-market/</guid>
+      <pubDate>Tue, 06 Oct 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Alex Morgan</dc:creator>
+      <category>World</category>
+      <category>neighbouring</category>
+      <category>towns</category>
+      <category>shared</category>
+      <description>Traders from both sides of the river can now sell under one roof, with a single set of rules.</description>
+    </item>
+    <item>
+      <title>Regional leaders agree to simplify cross-border rail freight</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/regional-leaders-agree-to-simplify-cross-border-rail-freight/</guid>
+      <pubDate>Mon, 05 Oct 2026 10:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>regional</category>
+      <category>leaders</category>
+      <category>agree</category>
+      <description>A common electronic form will replace paper paperwork at six border crossings.</description>
+    </item>
+    <item>
+      <title>Harvest festival returns to the highland villages</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/harvest-festival-returns-to-the-highland-villages/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/harvest-festival-returns-to-the-highland-villages/</guid>
+      <pubDate>Sat, 26 Sep 2026 09:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>harvest</category>
+      <category>festival</category>
+      <category>returns</category>
+      <description>After a two-year pause, farmers and visitors gather for music, market stalls and the traditional cheese race.</description>
+    </item>
+    <item>
+      <title>Cycling highway links three cities without a single traffic light</title>
+      <link>https://shishir19999.github.io/News-Outlet/a/cycling-highway-links-three-cities-without-a-single-traffic-light/</link>
+      <guid isPermaLink="true">https://shishir19999.github.io/News-Outlet/a/cycling-highway-links-three-cities-without-a-single-traffic-light/</guid>
+      <pubDate>Tue, 22 Sep 2026 11:30:03 GMT</pubDate>
+      <dc:creator>Dana Brooks</dc:creator>
+      <category>World</category>
+      <category>cycling</category>
+      <category>highway</category>
+      <category>links</category>
+      <description>The 42 km route opened on Sunday, with rest stops, repair stations and night lighting.</description>
+    </item>
+  </channel>
+</rss>
